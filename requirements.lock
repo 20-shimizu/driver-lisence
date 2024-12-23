@@ -10,6 +10,10 @@
 #   universal: false
 
 -e file:.
+aiosqlite==0.20.0
+    # via driver-lisence
+alembic==1.14.0
+    # via driver-lisence
 annotated-types==0.7.0
     # via pydantic
 anyio==4.7.0
@@ -52,10 +56,13 @@ itsdangerous==2.2.0
     # via fastapi
 jinja2==3.1.4
     # via fastapi
+mako==1.3.8
+    # via alembic
 markdown-it-py==3.0.0
     # via rich
 markupsafe==3.0.2
     # via jinja2
+    # via mako
 mdurl==0.1.2
     # via markdown-it-py
 orjson==3.10.12
@@ -90,6 +97,7 @@ shellingham==1.5.4
 sniffio==1.3.1
     # via anyio
 sqlalchemy==2.0.36
+    # via alembic
     # via databases
     # via driver-lisence
 starlette==0.41.3
@@ -97,6 +105,8 @@ starlette==0.41.3
 typer==0.15.1
     # via fastapi-cli
 typing-extensions==4.12.2
+    # via aiosqlite
+    # via alembic
     # via anyio
     # via fastapi
     # via pydantic
