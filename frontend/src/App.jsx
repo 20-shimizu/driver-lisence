@@ -77,7 +77,7 @@ const App = () => {
       {userInfo && (
         <div>
           <h2>User Info</h2>
-          <p>Username: {userInfo.id}</p>
+          <p>user_id: {userInfo.user_id}</p>
         </div>
       )}
     </div>

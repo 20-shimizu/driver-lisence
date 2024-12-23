@@ -83,7 +83,7 @@ class CRUDBase(
         id: Any,
         include_deleted: bool = False,
     ) -> ModelType | None:
-        stmt = select(self.model).where(self.model.id == id).execution_options(include_deleted=include_deleted)
+        stmt = select(self.model).where(self.model.user_id == id).execution_options(include_deleted=include_deleted)
         return (await db.execute(stmt)).scalars().first()
 
     async def get_db_obj_list(

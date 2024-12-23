@@ -21,7 +21,6 @@ class CRUDUser(
 
     async def create(self, db: AsyncSession, obj_in: schemas.UserCreate) -> models.User:
         db_obj = models.User(
-            # email=obj_in.email,
             user_name=obj_in.user_name,
             password=get_password_hash(obj_in.password),
             age=obj_in.age,

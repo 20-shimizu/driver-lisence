@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from fastapi import Depends, status
-from fastapi.security import OAuth2PasswordBearer, SecurityScopes
+from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from jose.exceptions import JWTError
 from passlib.context import CryptContext
@@ -51,7 +51,6 @@ def get_password_hash(password: str) -> str:
 
 
 async def get_current_user(
-    # security_scopes: SecurityScopes,
     db: AsyncSession = Depends(get_async_db),
     token: str = Depends(reusable_oauth2),
 ) -> models.User:

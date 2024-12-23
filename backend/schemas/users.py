@@ -1,6 +1,7 @@
 from pydantic import ConfigDict, EmailStr
 
 from backend.schemas.core import BaseSchema, PagingMeta
+from pydantic import Field
 
 
 class UserBase(BaseSchema):
@@ -19,7 +20,7 @@ class UserUpdate(UserBase):
 
 class UserResponse(UserBase):
     model_config = ConfigDict(from_attributes=True)
-    id: str
+    user_id: int = Field(alias="user_id")
 
 
 class UsersPagedResponse(BaseSchema):

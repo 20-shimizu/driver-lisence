@@ -31,7 +31,7 @@ async def login_access_token(
     access_token_expires = datetime.timedelta(
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES,
     )
-    access_token = auth.create_access_token(user.id, expires_delta=access_token_expires)
+    access_token = auth.create_access_token(user.user_id, expires_delta=access_token_expires)
     return schemas.Token(
         access_token=access_token,
         token_type="bearer",
