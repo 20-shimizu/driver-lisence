@@ -35,15 +35,14 @@ class Settings(BaseSettings):
 
     def get_database_url(self, is_async: bool = False) -> str:
         if is_async:
-            return (
-                "postgresql+asyncpg://"
-                f"{self.DB_USER_NAME}:{self.DB_PASSWORD}@"
-                f"{self.DB_HOST}/{self.DB_NAME}"
-            )
+            postgresql_url = "postgresql+asyncpg://"f"{self.DB_USER_NAME}:{self.DB_PASSWORD}@"f"{self.DB_HOST}/{self.DB_NAME}"
+            sqlite_url = "sqlite+aiosqlite:///./test.db"
+            
+            return (sqlite_url)
         else:
-            return (
-                "postgresql://" f"{self.DB_USER_NAME}:{self.DB_PASSWORD}@" f"{self.DB_HOST}/{self.DB_NAME}"
-            )
+            postgresql_url = "postgresql://"f"{self.DB_USER_NAME}:{self.DB_PASSWORD}@"f"{self.DB_HOST}/{self.DB_NAME}"
+            sqlite_url = "sqlite+:///./test.db"
+            return (sqlite_url)
 
     model_config = SettingsConfigDict(env_file=".env")
 

@@ -10,6 +10,8 @@
 #   universal: false
 
 -e file:.
+aiosqlite==0.20.0
+    # via driver-lisence
 annotated-types==0.7.0
     # via pydantic
 anyio==4.7.0
@@ -129,6 +131,7 @@ starlette==0.41.3
 typer==0.15.1
     # via fastapi-cli
 typing-extensions==4.12.2
+    # via aiosqlite
     # via anyio
     # via fastapi
     # via pydantic
