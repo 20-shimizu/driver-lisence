@@ -1,12 +1,15 @@
-from sqlalchemy import Boolean, String, Text, Integer
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+from database import Base
+from .mixin import TimestampMixin
 
-from backend.models.base import Base, ModelBaseMixin
+class User(Base, TimestampMixin):
+    __tablename__ = 'users'
 
+    user_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_name = Column(String(50), nullable=False, unique=True)
+    password = Column(String, nullable=False)
+    age = Column(Integer, nullable=False)
 
-class User(ModelBaseMixin, Base):
-    __tablename__ = "users"
-
-    user_name: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
-    password: Mapped[str] = mapped_column(String(50), nullable=False)
-    age: Mapped[int] = mapped_column(Integer, nullable=False)
+    families = relationship("Family", back_populates="user")
+    drive_reports = relationship("Report", back_populates="user")
