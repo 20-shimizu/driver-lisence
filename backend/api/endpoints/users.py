@@ -18,21 +18,21 @@ async def get_users(
     user_responses = [schemas.UserResponse.model_validate(user[0]) for user in users]
     return user_responses
 
-@router.get(
-    "/{id}",
-)
-async def get_user(
-    id: str,
-    db: AsyncSession = Depends(get_async_db),
+@router.get("/me")
+async def get_user_me(
     current_user: models.User = Depends(get_current_user),
 ) -> schemas.UserResponse:
-    if id.lower() == "me":
-        return current_user
-    else:
-        user = await crud.user.get_db_obj_by_id(db, id=id)
-        if not user:
-            raise APIException(ErrorMessage.ID_NOT_FOUND)
-        return user
+    return current_user
+
+@router.get("/{id}")
+async def get_user(
+    id: int,
+    db: AsyncSession = Depends(get_async_db),
+) -> schemas.UserResponse:
+    user = await crud.user.get_db_obj_by_id(db, id=id)
+    if not user:
+        raise APIException(ErrorMessage.ID_NOT_FOUND)
+    return user
 
 @router.post("/register")
 async def create_user(
