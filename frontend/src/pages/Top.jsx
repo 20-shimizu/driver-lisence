@@ -67,8 +67,6 @@ const Top = () => {
         <Button variant="contained" color="error">アプリを終了する</Button>
       </div>
 
-      <Button type="submit">結果を見る</Button>
-
       {token && (
         <div>
           <h2>Token: {token}</h2>
