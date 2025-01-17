@@ -8,13 +8,14 @@ import { Top } from "./pages/Top.jsx";
 import { SimpleResult } from "./pages/SimpleResult.jsx";
 import { DetailedResult } from "./pages/DetailedResult.jsx";
 
+/*
 import { DrivingHistory } from "./pages/DrivingHistory.jsx";
 import { FamilyProfile } from "./pages/FamilyProfile.jsx";
 import { Login } from "./pages/Login.jsx";
 import { Logout } from "./pages/Logout.jsx";
 import { UserProfile } from "./pages/UserProfile.jsx";
 import { UserRegistration } from "./pages/UserRegistration.jsx";
-
+*/
 
 function App(){
   return (
@@ -26,13 +27,6 @@ function App(){
           <Route path="/" element={<Top />} />
           <Route path="/SimpleResult" element={<SimpleResult />} />
           <Route path="/DetailedResult" element={<DetailedResult />} />
-
-          <Route path="/DrivingHistory" element={<DrivingHistory />} />
-          <Route path="/FamilyProfile" element={<FamilyProfile />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Logout" element={<Logout />} />
-          <Route path="/UserProfile" element={<UserProfile />} />
-          <Route path="/UserRegistration" element={<UserRegistration />} />
           
           <Route path="*" element={<h1>Not Found Page</h1>} />
         </Routes>
@@ -48,3 +42,4 @@ createRoot(document.getElementById('root')).render(
 );
 
 export default App;
+
