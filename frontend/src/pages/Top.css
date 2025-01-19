@@ -1,0 +1,46 @@
+/* ベースリセット */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5; /* 背景の淡い色 */
+  overflow-x: hidden; /* 横スクロールを防止 */
+}
+
+/* トップ画面全体を覆うコンテナ */
+.top-container {
+  width: 100%;
+  height: 100vh; /* 画面全体の高さを指定 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white; /* 背景色を白に設定 */
+}
+
+/* タイトル */
+.top-title {
+  margin-bottom: 30px;
+  font-size: 36px;
+  color: #333;
+}
+
+/* ボタンのコンテナ */
+.button-container {
+  margin-bottom: 20px; /* ボタン間のスペース */
+  width: 100%;
+  max-width: 400px; /* ボタンの横幅を制限 */
+}
+
+/* ボタン共通スタイル */
+button {
+  width: 100%; /* ボタンの幅を統一 */
+  padding: 15px; /* ボタン内の余白 */
+  font-size: 18px;
+}
