@@ -6,18 +6,18 @@ from pydantic import Field
 from pydantic import field_validator
 
 class SensorBase(BaseSchema):
-    report_id: int
-    started_at: datetime
-    ended_at: datetime
-    milage: int
-    average_speed: int
-    journey_time: int
-    longest_continuous_drive: int
-    idling_time: int
-    max_speed: int
-    acceralation_count: int
-    braking_count: int
-    cornering_count: int
+    report_id: int = Field(...)
+    started_at: datetime = Field(...)
+    ended_at: datetime = Field(...)
+    milage: int = Field(..., ge=0)
+    average_speed: int = Field(..., ge=0)
+    journey_time: int = Field(..., ge=0)
+    longest_continuous_drive: int = Field(..., ge=0)
+    idling_time: int = Field(..., ge=0)
+    max_speed: int = Field(..., ge=0)
+    acceralation_count: int = Field(..., ge=0)
+    braking_count: int = Field(..., ge=0)
+    cornering_count: int = Field(..., ge=0)
     
     @field_validator("started_at", "ended_at", mode="before")
     def parse_datetime(cls, value):
