@@ -5,17 +5,42 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // ページのリロードを防止
     if (username === '' || password === '') {
       setErrorMessage('ユーザー名とパスワードを入力してください');
-    } else {
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          username: username,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setSuccessMessage('');
+        setErrorMessage(errorData.detail || 'ログインに失敗しました');
+        return;
+      }
+
+      const data = await response.json();
+      localStorage.setItem('access_token', data.access_token); // トークンをローカルストレージに保存
+      setSuccessMessage('ログイン成功！');
       setErrorMessage('');
-      // ここでログイン処理を行います。例えば、API呼び出しなど
-      console.log('ログイン中...');
-      console.log('ユーザー名:', username);
-      console.log('パスワード:', password);
+    } catch (error) {
+      console.error('ログイン中にエラーが発生しました:', error);
+      setSuccessMessage('');
+      setErrorMessage('ログイン中にエラーが発生しました。後ほど再試行してください。');
     }
   };
 
@@ -46,6 +71,7 @@ function LoginForm() {
           />
         </div>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
         <div className="form-button-container">
           <button type="submit" className="form-button">ログイン</button>
         </div>

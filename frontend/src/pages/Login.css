@@ -70,6 +70,12 @@ html, body {
   margin-bottom: 20px;
 }
 
+.success-message {
+  color: green;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 /* ボタン */
 .form-button-container {
   text-align: center;
