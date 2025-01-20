@@ -20,6 +20,8 @@ dependencies = [
     "asyncpg>=0.30.0",
     "ulid-py>=1.1.0",
     "aiosqlite>=0.20.0",
+    "fastapi-mail>=1.4.2",
+    "python-multipart>=0.0.20",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
