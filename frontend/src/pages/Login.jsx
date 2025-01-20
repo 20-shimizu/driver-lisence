@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 function LoginForm() {
@@ -6,6 +7,7 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // ページのリロードを防止
@@ -34,9 +36,9 @@ function LoginForm() {
       }
 
       const data = await response.json();
-      localStorage.setItem('access_token', data.access_token); // トークンをローカルストレージに保存
-      setSuccessMessage('ログイン成功！');
-      setErrorMessage('');
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('username', username);
+      navigate('/profile');
     } catch (error) {
       console.error('ログイン中にエラーが発生しました:', error);
       setSuccessMessage('');
