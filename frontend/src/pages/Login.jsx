@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLoginAccessTokenAuthLoginPost } from '../api/fastAPISample';
 import './Login.css';
 
 function LoginForm() {
@@ -9,6 +10,23 @@ function LoginForm() {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
+  const loginMutation = useLoginAccessTokenAuthLoginPost({
+    mutation: {
+      onSuccess: (data) => {
+        localStorage.setItem('access_token', data.data.access_token);
+        localStorage.setItem('username', username);
+        setErrorMessage('');
+        setSuccessMessage('ログインに成功しました!');
+        navigate('/profile');
+      },
+      onError: (error) => {
+        const errorResponse = error.response?.data;
+        setSuccessMessage('');
+        setErrorMessage(errorResponse?.detail || 'ログインに失敗しました');
+      },
+    },
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault(); // ページのリロードを防止
     if (username === '' || password === '') {
@@ -16,34 +34,13 @@ function LoginForm() {
       return;
     }
 
-    try {
-      const response = await fetch('http://localhost:8000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          username: username,
-          password: password,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setSuccessMessage('');
-        setErrorMessage(errorData.detail || 'ログインに失敗しました');
-        return;
-      }
-
-      const data = await response.json();
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('username', username);
-      navigate('/profile');
-    } catch (error) {
-      console.error('ログイン中にエラーが発生しました:', error);
-      setSuccessMessage('');
-      setErrorMessage('ログイン中にエラーが発生しました。後ほど再試行してください。');
-    }
+    loginMutation.mutate({
+      data: {
+        grant_type: 'password',
+        username,
+        password
+      },
+    });
   };
 
   return (
