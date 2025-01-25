@@ -187,5 +187,10 @@ class CRUDBase(
 
     async def real_delete(self, db: AsyncSession, db_obj: ModelType) -> None:
         """実削除(real redele)."""
-        await db.delete(db_obj)
-        await db.flush()
+        try:
+            await db.delete(db_obj)
+            await db.commit()
+        except Exception as e:
+            await db.rollback()
+            print(f"Error during delete: {e}")
+            raise
