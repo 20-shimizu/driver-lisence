@@ -9,12 +9,12 @@ from backend.exceptions.error_messages import ErrorMessage
 
 router = APIRouter()
 
-@router.get("/{report_id}")
-async def get_sensor(
-    report_id: int,
+@router.get("/users/{user_id}")
+async def get_sensor_by_user_id(
+    user_id: int,
     db: AsyncSession = Depends(get_async_db),
 ) -> schemas.SensorResponse:
-    sensor = await crud.sensor.get_by_report_id(db, report_id=report_id)
+    sensor = await crud.sensor.get_newest_sensor_by_user_id(db, user_id=user_id)
     if not sensor:
         raise APIException(ErrorMessage.ID_NOT_FOUND)
     return sensor

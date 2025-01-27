@@ -12,4 +12,5 @@ class User(Base, TimestampMixin):
     age = Column(Integer, nullable=False)
 
     families = relationship("Family", back_populates="user")
-    drive_reports = relationship("Report", back_populates="user")
+    reports = relationship("Report", back_populates="user")
+    sensors = relationship("Sensor", back_populates="user")

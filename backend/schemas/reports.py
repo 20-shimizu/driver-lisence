@@ -16,6 +16,7 @@ class ReportEvaluationStatus(int, Enum):
 
 class ReportBase(BaseSchema):
     user_id: int = Field(..., description="ユーザーID")
+    sensor_id: int = Field(..., description="センサーID")
     driving_type: ReportDrivingType = Field(..., description="運転タイプ（ENUMの候補）")
     evaluation_status: ReportEvaluationStatus = Field(..., description="評価ステータス（ENUMの候補）")
     overall_summary: Optional[str] = Field(None, description="レポートの全体的な概要")
@@ -24,6 +25,7 @@ class ReportBase(BaseSchema):
     cornering_comment: Optional[str] = Field(None, description="コーナリングに関するコメント")
 
 class ReportResponse(ReportBase):
+    report_id: int
     model_config = ConfigDict(from_attributes=True)
     
     @field_validator("driving_type", mode="before")
