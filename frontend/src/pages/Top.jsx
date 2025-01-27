@@ -7,10 +7,10 @@ const Top = () => {
     <div className="top-container">
       <h1 className="top-title">トップ画面</h1>
       <div className="button-container">
-        <Button variant="contained" fullWidth href="<Top>">本日の結果を見る</Button>
+        <Button variant="contained" fullWidth href="/SimpleResult">本日の結果を見る</Button>
       </div>
       <div className="button-container">
-        <Button variant="contained" color="warning" fullWidth>過去の結果を見る</Button>
+        <Button variant="contained" color="warning" fullWidth href="/DrivingHistory">過去の結果を見る</Button>
       </div>
       <div className="button-container">
         <Button 
