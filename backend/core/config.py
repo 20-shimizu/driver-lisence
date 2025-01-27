@@ -33,6 +33,11 @@ class Settings(BaseSettings):
     SENTRY_SDK_DNS: str = ""
     MIGRATIONS_DIR_PATH: str = os.path.join(ROOT_DIR_PATH, "alembic")
 
+    MAIL_FROM: str = "driverlisenceapp@gmail.com"
+    MAIL_PASSWORD: str = "pycbhcghywsbszts"
+    MAIL_PORT: int = 587
+    MAIL_SERVER: str = "smtp.gmail.com"
+
     def get_database_url(self, is_async: bool = False) -> str:
         if is_async:
             postgresql_url = "postgresql+asyncpg://"f"{self.DB_USER_NAME}:{self.DB_PASSWORD}@"f"{self.DB_HOST}/{self.DB_NAME}"
