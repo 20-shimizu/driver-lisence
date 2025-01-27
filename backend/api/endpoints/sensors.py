@@ -5,6 +5,7 @@ from backend import crud, models, schemas
 from backend.core.database import get_async_db
 from backend.exceptions.core import APIException
 from backend.exceptions.error_messages import ErrorMessage
+from backend.core.utils import generate_report_comment
 
 
 router = APIRouter()
@@ -17,6 +18,7 @@ async def get_sensor_by_user_id(
     sensor = await crud.sensor.get_newest_sensor_by_user_id(db, user_id=user_id)
     if not sensor:
         raise APIException(ErrorMessage.ID_NOT_FOUND)
+
     return sensor
 
 @router.post("")
