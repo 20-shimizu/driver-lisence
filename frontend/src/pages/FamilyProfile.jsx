@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './FamilyProfile.css';
-import { getFamiliesByUserIdFamiliesUsersUserIdGet, getUserMeUsersMeGet, useCreateFamilyFamiliesRegisterPost, useDeleteFamilyFamiliesIdDelete } from '../api/fastAPISample';
+import { getFamiliesByUserIdFamiliesUsersUserIdGet, getUserMeUsersMeGet, useCreateFamilyFamiliesRegisterPost, useDeleteFamilyFamiliesIdDelete, useUpdateFamilyFamiliesIdPut } from '../api/fastAPISample';
 import { useNavigate } from 'react-router-dom';
 
 function FamilyProfile() {
   const navigate = useNavigate();
   const [familyInput, setFamilyInput] = useState({
-    name: '',
+    familyName: '',
     email: '',
   });
   const [userID, setUserID] = useState(null);
@@ -20,6 +20,7 @@ function FamilyProfile() {
   
   const deleteMutation = useDeleteFamilyFamiliesIdDelete();
   
+  const updateMutation = useUpdateFamilyFamiliesIdPut();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -74,29 +75,52 @@ function FamilyProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!familyInput.name || !familyInput.email) {
+    if (!familyInput.familyName || !familyInput.email) {
       alert('全ての項目を入力してください。');
       return;
     }
 
-    createMutation.mutate(
-      {
-        data: {
-          familyName: familyInput.name,
-          email: familyInput.email,
-          userId: userID,
+    if (editIndex == null) {
+      createMutation.mutate(
+        {
+          data: {
+            familyName: familyInput.familyName,
+            email: familyInput.email,
+            userId: userID,
+          },
         },
-      },
-      {
-        onSuccess: () => {
-          setFamilyInput({ name: '', email: '' });
-          setTrigger(prevState => !prevState);
-        },
-        onError: (error) => {
-          console.error("登録失敗", error);
+        {
+          onSuccess: () => {
+            setFamilyInput({ familyName: '', email: '' });
+            setTrigger(prevState => !prevState);
+          },
+          onError: (error) => {
+            console.error("登録失敗", error);
+          }
         }
-      }
-    );
+      );
+    } else {
+      updateMutation.mutate(
+        {
+          id: familyData[editIndex].family_id,
+          data: {
+            familyName: familyInput.familyName,
+            email: familyInput.email,
+          },
+        },
+        {
+          onSuccess: () => {
+            setFamilyInput({ familyName: '', email: '' });
+            setTrigger(prevState => !prevState);
+          },
+          onError: (error) => {
+            console.error("更新失敗", error);
+          }
+        }
+      );
+
+      setEditIndex(null);
+    }
 
     // setEditIndex(null);
   };
@@ -129,8 +153,8 @@ function FamilyProfile() {
             名前:
             <input
               type="text"
-              name="name"
-              value={familyInput.name}
+              name="familyName"
+              value={familyInput.familyName}
               onChange={handleChange}
             />
           </label>
