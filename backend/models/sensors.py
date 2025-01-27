@@ -7,7 +7,7 @@ class Sensor(Base, TimestampMixin):
     __tablename__ = 'sensors'
 
     sensor_id = Column(Integer, primary_key=True, autoincrement=True)
-    report_id = Column(Integer, ForeignKey('reports.report_id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
     started_at = Column(DateTime, nullable=False)
     ended_at = Column(DateTime, nullable=False)
     milage = Column(Integer, nullable=False)
@@ -20,4 +20,5 @@ class Sensor(Base, TimestampMixin):
     braking_count = Column(Integer, nullable=False)
     cornering_count = Column(Integer, nullable=False)
 
-    report = relationship("Report", back_populates="drive_sensor_data")
+    user = relationship("User", back_populates="sensors")
+    report = relationship("Report", back_populates="sensor")
