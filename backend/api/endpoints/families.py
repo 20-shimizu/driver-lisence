@@ -5,19 +5,20 @@ from backend import crud, models, schemas
 from backend.core.database import get_async_db
 from backend.exceptions.core import APIException
 from backend.exceptions.error_messages import ErrorMessage
+from typing import Optional, Union
 
 router = APIRouter()
 
 
-@router.get("/users/{user_id}", response_model=list[schemas.FamilyResponse])
+@router.get("/users/{user_id}", response_model=Optional[list[schemas.FamilyResponse]])
 async def get_families_by_user_id(
     user_id: int,
     db: AsyncSession = Depends(get_async_db),
-)-> list[schemas.FamilyResponse]:
+)-> Union[list[schemas.FamilyResponse], None]:
     try: 
         families = await crud.family.get_families_by_user_id(db, user_id=user_id)
         if not families:
-            raise APIException(ErrorMessage.ID_NOT_FOUND)
+            return None
         family_responses = [schemas.FamilyResponse.model_validate(family) for family in families]
         return family_responses
     except Exception as e:

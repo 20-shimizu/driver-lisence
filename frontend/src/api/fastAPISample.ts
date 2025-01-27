@@ -77,8 +77,109 @@ export interface Token {
   token_type: string;
 }
 
+export interface SensorResponse {
+  reportId: number;
+  startedAt: string;
+  endedAt: string;
+  /** @minimum 0 */
+  milage: number;
+  /** @minimum 0 */
+  averageSpeed: number;
+  /** @minimum 0 */
+  journeyTime: number;
+  /** @minimum 0 */
+  longestContinuousDrive: number;
+  /** @minimum 0 */
+  idlingTime: number;
+  /** @minimum 0 */
+  maxSpeed: number;
+  /** @minimum 0 */
+  acceralationCount: number;
+  /** @minimum 0 */
+  brakingCount: number;
+  /** @minimum 0 */
+  corneringCount: number;
+  sensorId: number;
+}
+
+export interface SensorBase {
+  reportId: number;
+  startedAt: string;
+  endedAt: string;
+  /** @minimum 0 */
+  milage: number;
+  /** @minimum 0 */
+  averageSpeed: number;
+  /** @minimum 0 */
+  journeyTime: number;
+  /** @minimum 0 */
+  longestContinuousDrive: number;
+  /** @minimum 0 */
+  idlingTime: number;
+  /** @minimum 0 */
+  maxSpeed: number;
+  /** @minimum 0 */
+  acceralationCount: number;
+  /** @minimum 0 */
+  brakingCount: number;
+  /** @minimum 0 */
+  corneringCount: number;
+}
+
 export interface HTTPValidationError {
   detail?: ValidationError[];
+}
+
+export interface FamilyUpdate {
+  /**
+   * 家族・関係者名(50文字以下)
+   * @maxLength 50
+   */
+  familyName: string;
+  /**
+   * メールアドレス(50文字以内)
+   * @maxLength 50
+   */
+  email: string;
+}
+
+export interface FamilyResponse {
+  /**
+   * 家族・関係者名(50文字以下)
+   * @maxLength 50
+   */
+  familyName: string;
+  /**
+   * メールアドレス(50文字以内)
+   * @maxLength 50
+   */
+  email: string;
+  family_id: number;
+}
+
+export interface FamilyCreate {
+  /**
+   * 家族・関係者名(50文字以下)
+   * @maxLength 50
+   */
+  familyName: string;
+  /**
+   * メールアドレス(50文字以内)
+   * @maxLength 50
+   */
+  email: string;
+  /** ユーザーID */
+  userId: number;
+}
+
+export type EmailSendAttachment = string | null;
+
+export interface EmailSend {
+  to: string[];
+  /** @maxLength 100 */
+  subject: string;
+  body: string;
+  attachment?: EmailSendAttachment;
 }
 
 export type BodyLoginAccessTokenAuthLoginPostClientSecret = string | null;
@@ -486,6 +587,497 @@ export const useCreateUserUsersRegisterPost = <TData = Awaited<ReturnType<typeof
       > => {
 
       const mutationOptions = getCreateUserUsersRegisterPostMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * @summary Get Families By User Id
+ */
+export const getFamiliesByUserIdFamiliesUsersUserIdGet = (
+    userId: number, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<FamilyResponse[]>> => {
+    
+    
+    return api.get(
+      `/families/users/${userId}`,options
+    );
+  }
+
+
+export const getGetFamiliesByUserIdFamiliesUsersUserIdGetQueryKey = (userId: number,) => {
+    return [`/families/users/${userId}`] as const;
+    }
+
+    
+export const getGetFamiliesByUserIdFamiliesUsersUserIdGetQueryOptions = <TData = Awaited<ReturnType<typeof getFamiliesByUserIdFamiliesUsersUserIdGet>>, TError = AxiosError<HTTPValidationError>>(userId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getFamiliesByUserIdFamiliesUsersUserIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+) => {
+
+const {query: queryOptions, axios: axiosOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetFamiliesByUserIdFamiliesUsersUserIdGetQueryKey(userId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getFamiliesByUserIdFamiliesUsersUserIdGet>>> = ({ signal }) => getFamiliesByUserIdFamiliesUsersUserIdGet(userId, { signal, ...axiosOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(userId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getFamiliesByUserIdFamiliesUsersUserIdGet>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetFamiliesByUserIdFamiliesUsersUserIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof getFamiliesByUserIdFamiliesUsersUserIdGet>>>
+export type GetFamiliesByUserIdFamiliesUsersUserIdGetQueryError = AxiosError<HTTPValidationError>
+
+
+/**
+ * @summary Get Families By User Id
+ */
+
+export function useGetFamiliesByUserIdFamiliesUsersUserIdGet<TData = Awaited<ReturnType<typeof getFamiliesByUserIdFamiliesUsersUserIdGet>>, TError = AxiosError<HTTPValidationError>>(
+ userId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getFamiliesByUserIdFamiliesUsersUserIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetFamiliesByUserIdFamiliesUsersUserIdGetQueryOptions(userId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Get Family
+ */
+export const getFamilyFamiliesIdGet = (
+    id: number, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<FamilyResponse>> => {
+    
+    
+    return api.get(
+      `/families/${id}`,options
+    );
+  }
+
+
+export const getGetFamilyFamiliesIdGetQueryKey = (id: number,) => {
+    return [`/families/${id}`] as const;
+    }
+
+    
+export const getGetFamilyFamiliesIdGetQueryOptions = <TData = Awaited<ReturnType<typeof getFamilyFamiliesIdGet>>, TError = AxiosError<HTTPValidationError>>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getFamilyFamiliesIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+) => {
+
+const {query: queryOptions, axios: axiosOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetFamilyFamiliesIdGetQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getFamilyFamiliesIdGet>>> = ({ signal }) => getFamilyFamiliesIdGet(id, { signal, ...axiosOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getFamilyFamiliesIdGet>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetFamilyFamiliesIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof getFamilyFamiliesIdGet>>>
+export type GetFamilyFamiliesIdGetQueryError = AxiosError<HTTPValidationError>
+
+
+/**
+ * @summary Get Family
+ */
+
+export function useGetFamilyFamiliesIdGet<TData = Awaited<ReturnType<typeof getFamilyFamiliesIdGet>>, TError = AxiosError<HTTPValidationError>>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getFamilyFamiliesIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetFamilyFamiliesIdGetQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Update Family
+ */
+export const updateFamilyFamiliesIdPut = (
+    id: number,
+    familyUpdate: FamilyUpdate, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<FamilyResponse>> => {
+    
+    
+    return api.put(
+      `/families/${id}`,
+      familyUpdate,options
+    );
+  }
+
+
+
+export const getUpdateFamilyFamiliesIdPutMutationOptions = <TData = Awaited<ReturnType<typeof updateFamilyFamiliesIdPut>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{id: number;data: FamilyUpdate}, TContext>, axios?: AxiosRequestConfig}
+) => {
+const mutationKey = ['updateFamilyFamiliesIdPut'];
+const {mutation: mutationOptions, axios: axiosOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, axios: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateFamilyFamiliesIdPut>>, {id: number;data: FamilyUpdate}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  updateFamilyFamiliesIdPut(id,data,axiosOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions } as UseMutationOptions<TData, TError,{id: number;data: FamilyUpdate}, TContext>}
+
+    export type UpdateFamilyFamiliesIdPutMutationResult = NonNullable<Awaited<ReturnType<typeof updateFamilyFamiliesIdPut>>>
+    export type UpdateFamilyFamiliesIdPutMutationBody = FamilyUpdate
+    export type UpdateFamilyFamiliesIdPutMutationError = AxiosError<HTTPValidationError>
+
+    /**
+ * @summary Update Family
+ */
+export const useUpdateFamilyFamiliesIdPut = <TData = Awaited<ReturnType<typeof updateFamilyFamiliesIdPut>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{id: number;data: FamilyUpdate}, TContext>, axios?: AxiosRequestConfig}
+): UseMutationResult<
+        TData,
+        TError,
+        {id: number;data: FamilyUpdate},
+        TContext
+      > => {
+
+      const mutationOptions = getUpdateFamilyFamiliesIdPutMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * @summary Delete Family
+ */
+export const deleteFamilyFamiliesIdDelete = (
+    id: number, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<unknown>> => {
+    
+    
+    return api.delete(
+      `/families/${id}`,options
+    );
+  }
+
+
+
+export const getDeleteFamilyFamiliesIdDeleteMutationOptions = <TData = Awaited<ReturnType<typeof deleteFamilyFamiliesIdDelete>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{id: number}, TContext>, axios?: AxiosRequestConfig}
+) => {
+const mutationKey = ['deleteFamilyFamiliesIdDelete'];
+const {mutation: mutationOptions, axios: axiosOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, axios: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteFamilyFamiliesIdDelete>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteFamilyFamiliesIdDelete(id,axiosOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions } as UseMutationOptions<TData, TError,{id: number}, TContext>}
+
+    export type DeleteFamilyFamiliesIdDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof deleteFamilyFamiliesIdDelete>>>
+    
+    export type DeleteFamilyFamiliesIdDeleteMutationError = AxiosError<HTTPValidationError>
+
+    /**
+ * @summary Delete Family
+ */
+export const useDeleteFamilyFamiliesIdDelete = <TData = Awaited<ReturnType<typeof deleteFamilyFamiliesIdDelete>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{id: number}, TContext>, axios?: AxiosRequestConfig}
+): UseMutationResult<
+        TData,
+        TError,
+        {id: number},
+        TContext
+      > => {
+
+      const mutationOptions = getDeleteFamilyFamiliesIdDeleteMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * @summary Create Family
+ */
+export const createFamilyFamiliesRegisterPost = (
+    familyCreate: FamilyCreate, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<FamilyResponse>> => {
+    
+    
+    return api.post(
+      `/families/register`,
+      familyCreate,options
+    );
+  }
+
+
+
+export const getCreateFamilyFamiliesRegisterPostMutationOptions = <TData = Awaited<ReturnType<typeof createFamilyFamiliesRegisterPost>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{data: FamilyCreate}, TContext>, axios?: AxiosRequestConfig}
+) => {
+const mutationKey = ['createFamilyFamiliesRegisterPost'];
+const {mutation: mutationOptions, axios: axiosOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, axios: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createFamilyFamiliesRegisterPost>>, {data: FamilyCreate}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createFamilyFamiliesRegisterPost(data,axiosOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions } as UseMutationOptions<TData, TError,{data: FamilyCreate}, TContext>}
+
+    export type CreateFamilyFamiliesRegisterPostMutationResult = NonNullable<Awaited<ReturnType<typeof createFamilyFamiliesRegisterPost>>>
+    export type CreateFamilyFamiliesRegisterPostMutationBody = FamilyCreate
+    export type CreateFamilyFamiliesRegisterPostMutationError = AxiosError<HTTPValidationError>
+
+    /**
+ * @summary Create Family
+ */
+export const useCreateFamilyFamiliesRegisterPost = <TData = Awaited<ReturnType<typeof createFamilyFamiliesRegisterPost>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{data: FamilyCreate}, TContext>, axios?: AxiosRequestConfig}
+): UseMutationResult<
+        TData,
+        TError,
+        {data: FamilyCreate},
+        TContext
+      > => {
+
+      const mutationOptions = getCreateFamilyFamiliesRegisterPostMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * @summary Get Sensor
+ */
+export const getSensorDriveSensorsReportIdGet = (
+    reportId: number, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<SensorResponse>> => {
+    
+    
+    return api.get(
+      `/drive_sensors/${reportId}`,options
+    );
+  }
+
+
+export const getGetSensorDriveSensorsReportIdGetQueryKey = (reportId: number,) => {
+    return [`/drive_sensors/${reportId}`] as const;
+    }
+
+    
+export const getGetSensorDriveSensorsReportIdGetQueryOptions = <TData = Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError = AxiosError<HTTPValidationError>>(reportId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+) => {
+
+const {query: queryOptions, axios: axiosOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetSensorDriveSensorsReportIdGetQueryKey(reportId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>> = ({ signal }) => getSensorDriveSensorsReportIdGet(reportId, { signal, ...axiosOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(reportId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetSensorDriveSensorsReportIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>>
+export type GetSensorDriveSensorsReportIdGetQueryError = AxiosError<HTTPValidationError>
+
+
+/**
+ * @summary Get Sensor
+ */
+
+export function useGetSensorDriveSensorsReportIdGet<TData = Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError = AxiosError<HTTPValidationError>>(
+ reportId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetSensorDriveSensorsReportIdGetQueryOptions(reportId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Create Sensor
+ */
+export const createSensorDriveSensorsPost = (
+    sensorBase: SensorBase, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<SensorResponse>> => {
+    
+    
+    return api.post(
+      `/drive_sensors`,
+      sensorBase,options
+    );
+  }
+
+
+
+export const getCreateSensorDriveSensorsPostMutationOptions = <TData = Awaited<ReturnType<typeof createSensorDriveSensorsPost>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{data: SensorBase}, TContext>, axios?: AxiosRequestConfig}
+) => {
+const mutationKey = ['createSensorDriveSensorsPost'];
+const {mutation: mutationOptions, axios: axiosOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, axios: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createSensorDriveSensorsPost>>, {data: SensorBase}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createSensorDriveSensorsPost(data,axiosOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions } as UseMutationOptions<TData, TError,{data: SensorBase}, TContext>}
+
+    export type CreateSensorDriveSensorsPostMutationResult = NonNullable<Awaited<ReturnType<typeof createSensorDriveSensorsPost>>>
+    export type CreateSensorDriveSensorsPostMutationBody = SensorBase
+    export type CreateSensorDriveSensorsPostMutationError = AxiosError<HTTPValidationError>
+
+    /**
+ * @summary Create Sensor
+ */
+export const useCreateSensorDriveSensorsPost = <TData = Awaited<ReturnType<typeof createSensorDriveSensorsPost>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{data: SensorBase}, TContext>, axios?: AxiosRequestConfig}
+): UseMutationResult<
+        TData,
+        TError,
+        {data: SensorBase},
+        TContext
+      > => {
+
+      const mutationOptions = getCreateSensorDriveSensorsPostMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * @summary Send Mail
+ */
+export const sendMailEmailSendPost = (
+    emailSend: EmailSend, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<unknown>> => {
+    
+    
+    return api.post(
+      `/email/send`,
+      emailSend,options
+    );
+  }
+
+
+
+export const getSendMailEmailSendPostMutationOptions = <TData = Awaited<ReturnType<typeof sendMailEmailSendPost>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{data: EmailSend}, TContext>, axios?: AxiosRequestConfig}
+) => {
+const mutationKey = ['sendMailEmailSendPost'];
+const {mutation: mutationOptions, axios: axiosOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, axios: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof sendMailEmailSendPost>>, {data: EmailSend}> = (props) => {
+          const {data} = props ?? {};
+
+          return  sendMailEmailSendPost(data,axiosOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions } as UseMutationOptions<TData, TError,{data: EmailSend}, TContext>}
+
+    export type SendMailEmailSendPostMutationResult = NonNullable<Awaited<ReturnType<typeof sendMailEmailSendPost>>>
+    export type SendMailEmailSendPostMutationBody = EmailSend
+    export type SendMailEmailSendPostMutationError = AxiosError<HTTPValidationError>
+
+    /**
+ * @summary Send Mail
+ */
+export const useSendMailEmailSendPost = <TData = Awaited<ReturnType<typeof sendMailEmailSendPost>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{data: EmailSend}, TContext>, axios?: AxiosRequestConfig}
+): UseMutationResult<
+        TData,
+        TError,
+        {data: EmailSend},
+        TContext
+      > => {
+
+      const mutationOptions = getSendMailEmailSendPostMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
