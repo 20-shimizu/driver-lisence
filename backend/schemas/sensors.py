@@ -6,7 +6,7 @@ from pydantic import Field
 from pydantic import field_validator
 
 class SensorBase(BaseSchema):
-    report_id: int = Field(...)
+    user_id: int = Field(...)
     started_at: datetime = Field(...)
     ended_at: datetime = Field(...)
     milage: int = Field(..., ge=0)
