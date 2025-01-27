@@ -24,6 +24,7 @@ class CRUDReport(
     async def create(self, db: AsyncSession, obj_in: schemas.ReportBase) -> models.Report:
         db_obj = models.Report(
             user_id=obj_in.user_id,
+            sensor_id=obj_in.sensor_id,
             driving_type=obj_in.driving_type,
             evaluation_status=obj_in.evaluation_status,
             overall_summary=obj_in.overall_summary,

@@ -16,10 +16,19 @@ class CRUDSensor(
     async def get_by_report_id(self, db:AsyncSession, *, report_id: int) -> models.Sensor | None:
         stmt = select(models.Sensor).where(models.Sensor.report_id == report_id)
         return (await db.execute(stmt)).scalars().first()
+    
+    async def get_newest_sensor_by_user_id(self, db: AsyncSession, *, user_id: int) -> models.Sensor | None:
+        stmt = (
+            select(models.Sensor)
+            .where(models.Sensor.user_id == user_id)
+            .order_by(models.Sensor.created_at.desc())  # 最新順にソート
+            .limit(1)  # 最初の1件を取得
+        )
+        return (await db.execute(stmt)).scalars().first()
 
     async def create(self, db: AsyncSession, obj_in: schemas.SensorBase) -> models.Sensor:
         db_obj = models.Sensor(
-            report_id=obj_in.report_id,
+            user_id=obj_in.user_id,
             started_at=obj_in.started_at,
             ended_at=obj_in.ended_at,
             milage=obj_in.milage,
