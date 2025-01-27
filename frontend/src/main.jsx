@@ -17,7 +17,7 @@ import EmailSendForm from "./pages/FamilyProfile.jsx";
 
 import LoginForm from "./pages/Login.jsx";
 // import { Logout } from "./pages/Logout.jsx";
-import { UserProfile } from "./pages/UserProfile.jsx";
+import UserProfile from "./pages/UserProfile.jsx";
 import { UserRegistration } from "./pages/UserRegistration.jsx";
 import { Alter } from "./pages/Alter.jsx"
 

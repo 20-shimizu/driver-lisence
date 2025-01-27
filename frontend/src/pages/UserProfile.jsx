@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './UserProfile.css';
 import { getUserMeUsersMeGet } from '../api/fastAPISample';
 
-function UserProfile() {
+export default function UserProfile() {
     const [userData, setUserData] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -60,7 +60,7 @@ function UserProfile() {
                 年齢: <span>{userData.age}</span>
             </p>
             <button className="logout-button" onClick={handleLogout}>ログアウト</button>
-            
+
             <Link to="/EmailSendFrom">家族の情報登録へ</Link>
             <Link to="/LoginForm" className="btn btn--purple">ログイン</Link>
             <Link to="/UserRegistration" className="btn btn--pink">ユーザー登録</Link>
