@@ -19,6 +19,7 @@ try:
         pool_pre_ping=True,
         echo=False,
         future=True,
+        connect_args={"check_same_thread": False}
     )
     session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 except Exception as e:
@@ -31,6 +32,7 @@ try:
         pool_pre_ping=True,
         echo=False,
         future=True,
+        connect_args={"check_same_thread": False}
     )
     async_session_factory = sessionmaker(
         autocommit=False,
@@ -50,6 +52,7 @@ def get_db() -> Generator[Session, None, None]:
     db = None
     try:
         db = session_factory()
+        db.execute(text("PRAGMA foreign_keys=ON"))
         yield db
         db.commit()
     except Exception:
@@ -64,6 +67,7 @@ async def get_async_db() -> AsyncGenerator[AsyncSession, None]:
     """async用のdb-sessionの作成."""
     async with async_session_factory() as db:
         try:
+            await db.execute(text("PRAGMA foreign_keys=ON"))
             yield db
             await db.commit()
         except Exception as e:
