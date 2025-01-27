@@ -1,20 +1,71 @@
-// 家族のプロフィール(編集)画面
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import './FamilyProfile.css';
+import { getFamiliesByUserIdFamiliesUsersUserIdGet, getUserMeUsersMeGet, useCreateFamilyFamiliesRegisterPost, useDeleteFamilyFamiliesIdDelete } from '../api/fastAPISample';
+import { useNavigate } from 'react-router-dom';
 
 function FamilyProfile() {
-  const [familyData, setFamilyData] = useState({
+  const navigate = useNavigate();
+  const [familyInput, setFamilyInput] = useState({
     name: '',
     email: '',
-    relation: '',
-    password: '',
   });
+  const [userID, setUserID] = useState(null);
+  const [error, setError] = useState(null);
+  const [familyData, setFamilyData] = useState(null);
+  const [trigger, setTrigger] = useState(false);
 
-  const [submittedData, setSubmittedData] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
+
+  const createMutation = useCreateFamilyFamiliesRegisterPost();
+  
+  const deleteMutation = useDeleteFamilyFamiliesIdDelete();
+  
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('access_token');
+
+      if (!token) {
+        setError('ログイン情報がありません。ログインしてください');
+        navigate('/');
+        return;
+      }
+
+      try {
+        const options = {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        };
+        const data = await getUserMeUsersMeGet(options);
+
+        setUserID(data.data.user_id);
+      } catch (err) {
+        setError(err.response?.data?.detail || 'ユーザー情報の取得に失敗しました');
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    const fetchFamilyData = async () => {
+      if (!userID) return;
+
+      try {
+        const data = await getFamiliesByUserIdFamiliesUsersUserIdGet(userID);
+        setFamilyData(data.data);
+      } catch (err) {
+        setError(err.response?.data?.detail || '家族情報の取得に失敗しました');
+      }
+    };
+
+    fetchFamilyData();
+  }, [userID, trigger]); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFamilyData((prevData) => ({
+    setFamilyInput((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -23,146 +74,109 @@ function FamilyProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!familyData.name || !familyData.email || !familyData.relation || !familyData.password) {
+    if (!familyInput.name || !familyInput.email) {
       alert('全ての項目を入力してください。');
       return;
     }
 
-    if (editIndex !== null) {
-      const updatedData = [...submittedData];
-      updatedData[editIndex] = familyData;
-      setSubmittedData(updatedData);
-      setEditIndex(null);
-    } else {
-      setSubmittedData((prevData) => [...prevData, familyData]);
-    }
+    createMutation.mutate(
+      {
+        data: {
+          familyName: familyInput.name,
+          email: familyInput.email,
+          userId: userID,
+        },
+      },
+      {
+        onSuccess: () => {
+          setFamilyInput({ name: '', email: '' });
+          setTrigger(prevState => !prevState);
+        },
+        onError: (error) => {
+          console.error("登録失敗", error);
+        }
+      }
+    );
 
-    setFamilyData({ name: '', email: '', relation: '', password: '' });
+    // setEditIndex(null);
   };
 
   const handleEdit = (index) => {
-    const password = prompt('編集するにはパスワードを入力してください:');
-    if (password === submittedData[index].password) {
-      setFamilyData(submittedData[index]);
-      setEditIndex(index);
-    } else {
-      alert('パスワードが正しくありません。');
-    }
+    setFamilyInput(familyData[index]);
+    setEditIndex(index);
   };
 
-  const handleDelete = (index) => {
-    const password = prompt('削除するにはパスワードを入力してください:');
-    if (password === submittedData[index].password) {
-      const updatedData = submittedData.filter((_, i) => i !== index);
-      setSubmittedData(updatedData);
-    } else {
-      alert('パスワードが正しくありません。');
-    }
+  const handleDelete = (id) => {
+    deleteMutation.mutate(
+      {id},
+      {
+        onSuccess: () => {
+          setTrigger(prevState => !prevState);
+        },
+        onError: (error) => {
+          console.error("削除失敗", error);
+        }
+      }
+    );
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px' }}>
+    <div className="container">
       <h2>家族情報登録</h2>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '10px' }}>
+        <div className="form-group">
           <label>
             名前:
             <input
               type="text"
               name="name"
-              value={familyData.name}
+              value={familyInput.name}
               onChange={handleChange}
-              style={{ width: '100%', padding: '8px', marginTop: '5px' }}
             />
           </label>
         </div>
-        <div style={{ marginBottom: '10px' }}>
+        <div className="form-group">
           <label>
             メールアドレス:
             <input
               type="email"
               name="email"
-              value={familyData.email}
+              value={familyInput.email}
               onChange={handleChange}
-              style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-            />
-          </label>
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label>
-            続き柄:
-            <input
-              type="text"
-              name="relation"
-              value={familyData.relation}
-              onChange={handleChange}
-              style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-            />
-          </label>
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label>
-            パスワード:
-            <input
-              type="password"
-              name="password"
-              value={familyData.password}
-              onChange={handleChange}
-              style={{ width: '100%', padding: '8px', marginTop: '5px' }}
             />
           </label>
         </div>
         <button
           type="submit"
-          style={{
-            backgroundColor: editIndex !== null ? 'orange' : 'blue',
-            color: 'white',
-            padding: '10px 20px',
-            border: 'none',
-            cursor: 'pointer',
-            borderRadius: '5px',
-          }}
+          className={`submit-button ${editIndex !== null ? 'edit-mode' : ''}`}
         >
           {editIndex !== null ? '更新' : '登録'}
         </button>
       </form>
       <h3>登録された家族情報</h3>
-      <ul>
-        {submittedData.map((data, index) => (
-          <li key={index} style={{ marginBottom: '10px' }}>
-            {data.name} ({data.relation}) - {data.email}
-            <div style={{ marginTop: '5px' }}>
-              <button
-                onClick={() => handleEdit(index)}
-                style={{
-                  marginRight: '10px',
-                  backgroundColor: 'green',
-                  color: 'white',
-                  padding: '5px 10px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  borderRadius: '5px',
-                }}
-              >
-                編集
-              </button>
-              <button
-                onClick={() => handleDelete(index)}
-                style={{
-                  backgroundColor: 'red',
-                  color: 'white',
-                  padding: '5px 10px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  borderRadius: '5px',
-                }}
-              >
-                削除
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {familyData && familyData.length > 0 && (
+        <ul>
+          {familyData.map((data, index) => (
+            <li key={index}>
+              {data.family_id} : {data.familyName} - {data.email}
+              <div>
+                <button
+                  onClick={() => handleEdit(index)}
+                  className="edit-button"
+                >
+                  編集
+                </button>
+                <button
+                  onClick={() => handleDelete(data.family_id)}
+                  className="delete-button"
+                >
+                  削除
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
