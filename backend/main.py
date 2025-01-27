@@ -43,8 +43,7 @@ def get_info() -> dict[str, str]:
 app.include_router(auth.router, tags=["Auth"], prefix="/auth")
 app.include_router(users.router, tags=["Users"], prefix="/users")
 app.include_router(families.router, tags=["Families"], prefix="/families")
-# app.include_router(families.router, tags=["Families"], prefix="/families")
-# app.include_router(reports.router, tags=["Reports"], prefix="/drive_reports")
+app.include_router(reports.router, tags=["Reports"], prefix="/drive_reports")
 app.include_router(sensors.router, tags=["Sensors"], prefix="/drive_sensors")
 app.include_router(share.router, tags=["Share"], prefix="/email")
 
