@@ -11,6 +11,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  display: block;
 }
 
 a {
@@ -28,6 +30,9 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  width: 100%;
+  overflow: hidden;
 }
 
 h1 {
@@ -69,12 +74,23 @@ button:focus-visible {
 }
 
 .App {
-
-  margin: 0 auto;
-  padding: 10px 100px;
+  width: 400px;
+  height: 750px;
+  margin: 0px auto;
+  padding: 0 0px;
   color: #1a1a1a;
   background-color: #f9f9f9;
+  display: block;
 }
+.Back{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing:border-box;
+  background-color: #000000;
+  display: block;
+}
+
 
 .btn--pink {
   color: #fff;
@@ -83,7 +99,7 @@ button:focus-visible {
 }
 .btn--pink:hover {
   color: #65558f;
-  background: #fff;
+  background: lavender;
   border-bottom: 5px groove darkgray;
 }
 .btn--red {
@@ -93,7 +109,7 @@ button:focus-visible {
 }
 .btn--red:hover {
   color: #65558f;
-  background: #fff;
+  background: lavender;
   border-bottom: 5px groove darkgray;
 }
 .btn--skyblue {
@@ -103,7 +119,7 @@ button:focus-visible {
 }
 .btn--skyblue:hover {
   color: #65558f;
-  background: #fff;
+  background: lavender;
   border-bottom: 5px groove darkgray;
 }
 .btn--yellow {
@@ -113,7 +129,7 @@ button:focus-visible {
 }
 .btn--yellow:hover {
   color: #65558f;
-  background: #fff;
+  background: lavender;
   border-bottom: 5px groove darkgray;
 }
 .btn--purple {
@@ -123,7 +139,7 @@ button:focus-visible {
 }
 .btn--purple:hover {
   color: #65558f;
-  background: #fff;
+  background: lavender;
   border-bottom: 5px groove darkgray;
 }
 .btn--green {
@@ -133,19 +149,32 @@ button:focus-visible {
 }
 .btn--green:hover {
   color: #65558f;
-  background: #fff;
+  background: lavender;
   border-bottom: 5px groove darkgray;
 }
 
 
 .btn{
-  width: 400px;
-  height: 100px;
+  width: auto;
+  height: 80px;
   border-radius: 100vh;
-  margin: 20px 0px;
+  margin: 15px 40px;
+  padding: auto;
 
-  line-height: 100px;
-  font-size: 48px;
+  line-height: 80px;
+  font-size: 28px;
+  display: block;
+  text-align: center;
+}
+.btn--mini{
+  width: auto;
+  height: 70px;
+  border-radius: 100vh;
+  margin: 20px 60px;
+  padding: auto;
+
+  line-height: 70px;
+  font-size: 20px;
   display: block;
   text-align: center;
 }
