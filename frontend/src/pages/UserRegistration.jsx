@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import './UserRegistrationForm.css'; // ★ 追加
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import './UserRegistration.css'; // ★ 追加
 
 export default function UserRegistrationForm() {
   const [name, setName] = useState("");
@@ -10,7 +8,7 @@ export default function UserRegistrationForm() {
   const [birthDate, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // 入力チェックやバリデーションを行い、問題なければサーバーに送信
     console.log({ name, email, emailConfirm, birthDate, password });
