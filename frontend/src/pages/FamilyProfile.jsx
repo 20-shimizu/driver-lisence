@@ -1,155 +1,208 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState } from 'react';
+import './FamilyProfile.css';
+import { getFamiliesByUserIdFamiliesUsersUserIdGet, getUserMeUsersMeGet, useCreateFamilyFamiliesRegisterPost, useDeleteFamilyFamiliesIdDelete, useUpdateFamilyFamiliesIdPut } from '../api/fastAPISample';
+import { useNavigate } from 'react-router-dom';
 
-const EmailSendForm = () => {
-  const [to, setTo] = useState([]); // メールアドレスリスト
-  const [subject, setSubject] = useState(""); // 件名
-  const [body, setBody] = useState(""); // 本文
-  const [attachment, setAttachment] = useState(null); // 添付ファイル
-  const [errorMessage, setErrorMessage] = useState(null); // エラーメッセージ
-  const [successMessage, setSuccessMessage] = useState(null); // 成功メッセージ
+function FamilyProfile() {
+  const navigate = useNavigate();
+  const [familyInput, setFamilyInput] = useState({
+    familyName: '',
+    email: '',
+  });
+  const [userID, setUserID] = useState(null);
+  const [error, setError] = useState(null);
+  const [familyData, setFamilyData] = useState(null);
+  const [trigger, setTrigger] = useState(false);
 
-  const emailRef = useRef(); // メールアドレス入力の参照
+  const [editIndex, setEditIndex] = useState(null);
 
-  // メールアドレスを追加
-  const handleAddEmail = (e) => {
-    e.preventDefault();
-    const newEmail = emailRef.current.value;
+  const createMutation = useCreateFamilyFamiliesRegisterPost();
+  
+  const deleteMutation = useDeleteFamilyFamiliesIdDelete();
+  
+  const updateMutation = useUpdateFamilyFamiliesIdPut();
 
-    // 入力されていない場合は何もしない
-    if (newEmail && !to.includes(newEmail)) {
-      setTo((prevTo) => [...prevTo, newEmail]); // 新しいメールアドレスをリストに追加
-    }
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('access_token');
 
-    emailRef.current.value = "";  // フィールドをリセット
+      if (!token) {
+        setError('ログイン情報がありません。ログインしてください');
+        navigate('/');
+        return;
+      }
+
+      try {
+        const options = {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        };
+        const data = await getUserMeUsersMeGet(options);
+
+        setUserID(data.data.user_id);
+      } catch (err) {
+        setError(err.response?.data?.detail || 'ユーザー情報の取得に失敗しました');
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    const fetchFamilyData = async () => {
+      if (!userID) return;
+
+      try {
+        const data = await getFamiliesByUserIdFamiliesUsersUserIdGet(userID);
+        setFamilyData(data.data);
+      } catch (err) {
+        setError(err.response?.data?.detail || '家族情報の取得に失敗しました');
+      }
+    };
+
+    fetchFamilyData();
+  }, [userID, trigger]); 
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFamilyInput((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  // 添付ファイルの状態更新
-  const handleFileChange = (e) => {
-    setAttachment(e.target.files[0]);
-  };
-
-  // フォーム送信時
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    // 入力チェック
-    if (to.length === 0 || !subject || !body) {
-      setErrorMessage("送信先、件名、本文は必須です。");
+    if (!familyInput.familyName || !familyInput.email) {
+      alert('全ての項目を入力してください。');
       return;
     }
 
-    if (attachment) {
-      const reader = new FileReader();
-      reader.readAsDataURL(attachment);
-      reader.onload = async() => {
-        const attachmentBase64 = reader.result;
-        const payload = {
-          to: to,
-          subject: subject,
-          body: body,
-          attachment: attachmentBase64,
-        };
-
-        try {
-          const response = await fetch("http://localhost:8000/email/send", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-          });
-
-          if (!response.ok) {
-            throw new Error("メール送信に失敗しました。");
-          }
-
-          const data = await response.json();
-          setSuccessMessage(data.message);
-          setErrorMessage(null);
-        } catch (error) {
-          setSuccessMessage(null);
-          setErrorMessage(error.message);
-        }
-      };
-    } else {
-      const payload = {
-        to: to,
-        subject: subject,
-        body: body,
-        attachment: null,
-      };
-      try {
-        const response = await fetch("http://localhost:8000/email/send", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+    if (editIndex == null) {
+      createMutation.mutate(
+        {
+          data: {
+            familyName: familyInput.familyName,
+            email: familyInput.email,
+            userId: userID,
           },
-          body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) {
-          throw new Error("メール送信に失敗しました。");
+        },
+        {
+          onSuccess: () => {
+            setFamilyInput({ familyName: '', email: '' });
+            setTrigger(prevState => !prevState);
+          },
+          onError: (error) => {
+            console.error("登録失敗", error);
+          }
         }
+      );
+    } else {
+      updateMutation.mutate(
+        {
+          id: familyData[editIndex].family_id,
+          data: {
+            familyName: familyInput.familyName,
+            email: familyInput.email,
+          },
+        },
+        {
+          onSuccess: () => {
+            setFamilyInput({ familyName: '', email: '' });
+            setTrigger(prevState => !prevState);
+          },
+          onError: (error) => {
+            console.error("更新失敗", error);
+          }
+        }
+      );
 
-        const data = await response.json();
-        setSuccessMessage(data.message);
-        setErrorMessage(null);
-      } catch (error) {
-        setSuccessMessage(null);
-        setErrorMessage(error.message);
-      }
+      setEditIndex(null);
     }
-  }
+
+    // setEditIndex(null);
+  };
+
+  const handleEdit = (index) => {
+    setFamilyInput(familyData[index]);
+    setEditIndex(index);
+  };
+
+  const handleDelete = (id) => {
+    deleteMutation.mutate(
+      {id},
+      {
+        onSuccess: () => {
+          setTrigger(prevState => !prevState);
+        },
+        onError: (error) => {
+          console.error("削除失敗", error);
+        }
+      }
+    );
+  };
 
   return (
-    <div>
-      <h1>メール送信フォーム</h1>
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+    <div className="container">
+      <h2>家族情報登録</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>送信先 (メールアドレスを追加):</label>
-          <input
-            type="email"
-            ref={emailRef} // refで入力欄を管理
-          />
-          <button onClick={handleAddEmail}>追加</button>
-          <ul>
-            {to.map((email, index) => (
-              <li key={index}>{email}</li>
-            ))}
-          </ul>
+        <div className="form-group">
+          <label>
+            名前:
+            <input
+              type="text"
+              name="familyName"
+              value={familyInput.familyName}
+              onChange={handleChange}
+            />
+          </label>
         </div>
-        <div>
-          <label>件名:</label>
-          <input
-            type="text"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            required
-            maxLength={100}
-          />
+        <div className="form-group">
+          <label>
+            メールアドレス:
+            <input
+              type="email"
+              name="email"
+              value={familyInput.email}
+              onChange={handleChange}
+            />
+          </label>
         </div>
-        <div>
-          <label>本文:</label>
-          <textarea
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>添付ファイル (オプション):</label>
-          <input
-            type="file"
-            onChange={handleFileChange}
-            accept=".pdf,.png,.jpg,.jpeg,.docx,.txt"
-          />
-        </div>
-        <button type="submit">送信</button>
+        <button
+          type="submit"
+          className={`submit-button ${editIndex !== null ? 'edit-mode' : ''}`}
+        >
+          {editIndex !== null ? '更新' : '登録'}
+        </button>
       </form>
+      <h3>登録された家族情報</h3>
+      {familyData && familyData.length > 0 && (
+        <ul>
+          {familyData.map((data, index) => (
+            <li key={index}>
+              {data.family_id} : {data.familyName} - {data.email}
+              <div>
+                <button
+                  onClick={() => handleEdit(index)}
+                  className="edit-button"
+                >
+                  編集
+                </button>
+                <button
+                  onClick={() => handleDelete(data.family_id)}
+                  className="delete-button"
+                >
+                  削除
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
-};
+}
 
-export default EmailSendForm;
+export default FamilyProfile;
