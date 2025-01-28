@@ -8,6 +8,7 @@ class Report(Base, TimestampMixin):
 
     report_id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
+    sensor_id = Column(Integer, ForeignKey('sensors.sensor_id'), nullable=False)
     driving_type = Column(Integer, nullable=False)  # ENUM候補
     evaluation_status = Column(Integer, nullable=False)  # ENUM候補
     overall_summary = Column(Text)
@@ -15,5 +16,5 @@ class Report(Base, TimestampMixin):
     braking_comment = Column(Text)
     cornering_comment = Column(Text)
 
-    user = relationship("User", back_populates="drive_reports")
-    drive_sensor_data = relationship("Sensor", back_populates="report")
+    user = relationship("User", back_populates="reports")
+    sensor = relationship("Sensor", back_populates="report")
