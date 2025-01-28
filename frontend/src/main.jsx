@@ -2,9 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import App from './App'
 import LoginForm from './pages/Login'
-import UserProfile from './pages/UserProfile';
 import FamilyProfile from './pages/FamilyProfile';
 import './index.css'
 
@@ -15,10 +13,8 @@ createRoot(document.getElementById('root')).render(
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          {/* <Route path='/' element={<FamilyProfile />} /> */}
           <Route path="/" element={<LoginForm />} />
           <Route path="/profile" element={<FamilyProfile />} />
-          {/* <Route path="/profile" element={<UserProfile />} /> */}
         </Routes>
       </Router>
     </QueryClientProvider>
