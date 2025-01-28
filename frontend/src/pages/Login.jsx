@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginAccessTokenAuthLoginPost } from '../api/fastAPISample';
+import { Link } from "react-router-dom";
 import './Login.css';
 
 function LoginForm() {
@@ -11,22 +12,7 @@ function LoginForm() {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
-  const loginMutation = useLoginAccessTokenAuthLoginPost({
-    mutation: {
-      onSuccess: (data) => {
-        localStorage.setItem('access_token', data.data.access_token);
-        localStorage.setItem('username', username);
-        setErrorMessage('');
-        setSuccessMessage('ログインに成功しました!');
-        navigate('/profile');
-      },
-      onError: (error) => {
-        const errorResponse = error.response?.data;
-        setSuccessMessage('');
-        setErrorMessage(errorResponse?.detail || 'ログインに失敗しました');
-      },
-    },
-  });
+  const loginMutation = useLoginAccessTokenAuthLoginPost();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // ページのリロードを防止
@@ -35,13 +21,30 @@ function LoginForm() {
       return;
     }
 
-    loginMutation.mutate({
-      data: {
-        grant_type: 'password',
-        username,
-        password
+    loginMutation.mutate(
+      {
+        data: {
+          grant_type: 'password',
+          username,
+          password
+        },
       },
-    });
+      {
+        onSuccess: (data) => {
+          localStorage.setItem('access_token', data.data.access_token);
+          localStorage.setItem('username', username);
+          setErrorMessage('');
+          setSuccessMessage('ログインに成功しました!');
+          navigate('/');
+        },
+        onError: (error) => {
+          const errorResponse = error.response?.data;
+          setSuccessMessage('');
+          setErrorMessage(errorResponse?.detail || 'ログインに失敗しました');
+          console.log(error)
+        },
+      }
+    );
   };
 
   return (
@@ -74,6 +77,7 @@ function LoginForm() {
         {successMessage && <p className="success-message">{successMessage}</p>}
         <div className="form-button-container">
           <button type="submit" className="form-button">ログイン</button>
+          <Link to="/" className="form-button">戻る</Link>
         </div>
       </form>
     </div>

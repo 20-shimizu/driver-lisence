@@ -155,26 +155,30 @@ button:focus-visible {
 
 
 .btn{
-  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
   height: 80px;
-  border-radius: 100vh;
-  margin: 15px 40px;
-  padding: auto;
-
-  line-height: 80px;
-  font-size: 28px;
-  display: block;
+  padding: 10px 15px;
+  margin: 10px 0;
   text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 40px;
+  font-weight: bold;
 }
 .btn--mini{
-  width: auto;
-  height: 70px;
-  border-radius: 100vh;
-  margin: 20px 60px;
-  padding: auto;
-
-  line-height: 70px;
-  font-size: 20px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 60px;
+  padding: 10px 15px;
+  margin: 10px 0;
   text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  border-radius: 40px;
+  font-weight: bold;
 }

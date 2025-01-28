@@ -1,7 +1,7 @@
 // 警告画面
 import{ Link } from "react-router-dom";
 
-export const Alter = ( ) => {
+function Alter () {
     return (
         <div>
             <h1>警告</h1>
@@ -13,3 +13,5 @@ export const Alter = ( ) => {
         </div>
     )
 }
+
+export default Alter;
