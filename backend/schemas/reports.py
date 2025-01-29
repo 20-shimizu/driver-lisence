@@ -23,7 +23,7 @@ class ReportBase(BaseSchema):
     acceralation_comment: Optional[str] = Field(None, description="加速に関するコメント")
     braking_comment: Optional[str] = Field(None, description="ブレーキに関するコメント")
     cornering_comment: Optional[str] = Field(None, description="コーナリングに関するコメント")
-
+    
 class ReportResponse(ReportBase):
     report_id: int
     model_config = ConfigDict(from_attributes=True)

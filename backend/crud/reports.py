@@ -3,6 +3,7 @@ from sqlalchemy.sql import select
 
 from backend import models, schemas
 from backend.crud.base import CRUDBase
+from backend.core.utils import generate_report_comment, generate_report_category
 
 class CRUDReport(
     CRUDBase[
@@ -21,16 +22,19 @@ class CRUDReport(
         stmt = select(models.Report).where(models.Report.report_id == report_id)
         return (await db.execute(stmt)).scalars().first()
 
-    async def create(self, db: AsyncSession, obj_in: schemas.ReportBase) -> models.Report:
+    async def create(self, db: AsyncSession, obj_in: schemas.SensorResponse) -> models.Report:
+        result_comment = await generate_report_comment(sensor_data=obj_in)
+        result_category = await generate_report_category(report_comment=str(result_comment))
+        
         db_obj = models.Report(
             user_id=obj_in.user_id,
             sensor_id=obj_in.sensor_id,
-            driving_type=obj_in.driving_type,
-            evaluation_status=obj_in.evaluation_status,
-            overall_summary=obj_in.overall_summary,
-            acceralation_comment=obj_in.acceralation_comment,
-            braking_comment=obj_in.braking_comment,
-            cornering_comment=obj_in.cornering_comment,
+            driving_type=result_category["driving_type"],
+            evaluation_status=result_category["evaluation_status"],
+            overall_summary=result_comment["overall_summary"],
+            acceralation_comment=result_comment["acceralation_comment"],
+            braking_comment=result_comment["braking_comment"],
+            cornering_comment=result_comment["cornering_comment"],
         )
         db.add(db_obj)
         await db.flush()

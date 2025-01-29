@@ -28,15 +28,19 @@ async def get_report(
     report = await crud.report.get_report_by_id(db, report_id=id)
     if not report:
         raise APIException(ErrorMessage.ID_NOT_FOUND)
-    
-    print("Driving Type:", report.driving_type)
-    print("Evaluation Status:", report.evaluation_status)
+
     return report
 
-@router.post("")
+@router.post("/users/{user_id}")
 async def create_report(
-    data_in: schemas.ReportBase,
+    user_id: int,
     db: AsyncSession = Depends(get_async_db),
 ) -> schemas.ReportResponse:
-    return await crud.report.create(db, obj_in=data_in)
+    sensor = await crud.sensor.get_newest_sensor_by_user_id(db, user_id=user_id)
+    if not sensor:
+        raise APIException(ErrorMessage.ID_NOT_FOUND)
+    
+    sensor_dict = {key: value for key, value in vars(sensor).items() if not key.startswith("_")}
+    sensor_obj = schemas.SensorResponse.model_validate(sensor_dict)
+    return await crud.report.create(db, obj_in=sensor_obj)
     
