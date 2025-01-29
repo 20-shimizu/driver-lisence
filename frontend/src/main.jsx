@@ -12,7 +12,7 @@ import DrivingHistory from "./pages/DrivingHistory.jsx";
 import LoginForm from "./pages/Login.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 import UserRegistration from "./pages/UserRegistration.jsx";
-import Alter from "./pages/Alter.jsx"
+import Alert from "./pages/Alert.jsx"
 import FamilyProfile from './pages/FamilyProfile.jsx';
 
 const queryClient = new QueryClient
@@ -23,15 +23,15 @@ function Hub() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Top />} />
-          <Route path="/LoginForm" element={<LoginForm />} />
-          <Route path="/UserRegistration" element={<UserRegistration />} />
-          <Route path="/SimpleResult" element={<SimpleResult />} />
-          <Route path="/DetailedResult" element={<DetailedResult />} />
-          <Route path="/Alter" element={<Alter />} />
-          <Route path="/DrivingHistory" element={<DrivingHistory />} />
-          {/* <Route path="/EmailSendForm" element={<EmailSendForm />} /> */}
-          <Route path="/FamilyProfile" element={<FamilyProfile />} />
-          <Route path="/UserProfile" element={<UserProfile />} />
+          <Route path="/login_form" element={<LoginForm />} />
+          <Route path="/user_registration" element={<UserRegistration />} />
+          <Route path="/simple_result" element={<SimpleResult />} />
+          <Route path="/detailed_result" element={<DetailedResult />} />
+          <Route path="/alert" element={<Alert />} />
+          <Route path="/driving_history" element={<DrivingHistory />} />
+          {/* <Route path="/email_sendform" element={<EmailSendForm />} /> */}
+          <Route path="/family_profile" element={<FamilyProfile />} />
+          <Route path="/user_profile" element={<UserProfile />} />
 
           <Route path="*" element={<h1>Not Found Page</h1>} />
 

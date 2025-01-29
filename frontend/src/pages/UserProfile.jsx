@@ -15,7 +15,7 @@ function UserProfile() {
 
             if (!token) {
                 setError('ログイン情報がありません。ログインしてください');
-                navigate('/');
+                navigate('/login_form');
                 return;
             }
 
@@ -37,13 +37,18 @@ function UserProfile() {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('access_token'); // トークン削除
-        localStorage.removeItem('username'); // ユーザー名削除
-        navigate('/'); // ログイン画面に移行
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('username');
+        navigate('/');
     };
 
     if (error) {
-        return <p className="error-message">Error: {error}</p>;
+        return (
+            <>
+                <p className="error-message">Error: {error}</p>
+                <button className="logout-button" onClick={handleLogout}>ログアウト</button>
+            </>
+        );
     }
 
     if (!userData) {

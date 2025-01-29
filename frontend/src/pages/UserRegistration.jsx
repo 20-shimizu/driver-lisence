@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './UserRegistration.css'; // ★ 追加
+import { Link } from 'react-router-dom';
 
 export default function UserRegistrationForm() {
   const [name, setName] = useState("");
@@ -90,6 +91,7 @@ export default function UserRegistrationForm() {
           <button type="submit" className="form-button">
             登録
           </button>
+          <Link to="/">戻る</Link>
         </form>
       </div>
     </div>

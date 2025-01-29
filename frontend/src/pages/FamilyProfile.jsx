@@ -121,8 +121,6 @@ function FamilyProfile() {
 
       setEditIndex(null);
     }
-
-    // setEditIndex(null);
   };
 
   const handleEdit = (index) => {
@@ -131,6 +129,12 @@ function FamilyProfile() {
   };
 
   const handleDelete = (id) => {
+    const isConfirmed = window.confirm("本当に削除しますか？");
+
+    if (!isConfirmed) {
+      return;
+    }
+
     deleteMutation.mutate(
       {id},
       {
