@@ -6,7 +6,7 @@ import { getReportsByUserIdDriveReportsUsersUserIdGet, getUserMeUsersMeGet } fro
 const Top = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [alertCount, setAlertCount] = useState(0);
+  const [isAlert, setIsAlert] = useState(false);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -36,10 +36,14 @@ const Top = () => {
     const fetchReportData = async () => {
       try {
         const data = await getReportsByUserIdDriveReportsUsersUserIdGet(userId);
-        const count = data.data.filter(item => item.evaluationStatus === 2).length;
-        setAlertCount(count);
+        const latestData = data.data.at(-1);
+        if (latestData.evaluationStatus === 2) {
+          setIsAlert(true);
+        } else {
+          setIsAlert(false);
+        }
       } catch (err) {
-        setAlertCount(0);
+        setIsAlert(false);
       }
     };
 
@@ -54,15 +58,16 @@ const Top = () => {
 
       {isLoggedIn ? (
         <>
-          {alertCount === 0 ? (
-            <Link to="/simple_result" className="btn btn--red">運転結果</Link>
-          ) :  (
+          {isAlert ? (
             <Link to="/alert" className="btn btn--red">運転結果</Link>
+          ) :  (
+            <Link to="/simple_result" className="btn btn--red">運転結果</Link>
           )}
           <Link to="/driving_history" className="btn btn--purple">過去の結果を見る</Link>
           <a href="https://www.keishicho.metro.tokyo.lg.jp/menkyo/koshin/jisyu_hennou/index.html" target="_blank" rel="noopener noreferrer" className="btn btn--yellow">免許返納について</a>
           <Link to="/family_profile" className='btn btn--green'>家族情報登録</Link>
           <Link to="/user_profile" className="btn btn--green">ユーザー情報</Link>
+          <Link to="/sensor_data_input" className="btn btn--purple">センサデータ登録</Link>
         </>
       ) : (
         <>

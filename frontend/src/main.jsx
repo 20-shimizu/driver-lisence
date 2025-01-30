@@ -14,6 +14,7 @@ import UserProfile from "./pages/UserProfile.jsx";
 import UserRegistration from "./pages/UserRegistration.jsx";
 import Alert from "./pages/Alert.jsx"
 import FamilyProfile from './pages/FamilyProfile.jsx';
+import SensorDataInput from './pages/SensorDataInput.jsx';
 
 const queryClient = new QueryClient
 
@@ -32,6 +33,7 @@ function Hub() {
           {/* <Route path="/email_sendform" element={<EmailSendForm />} /> */}
           <Route path="/family_profile" element={<FamilyProfile />} />
           <Route path="/user_profile" element={<UserProfile />} />
+          <Route path="/sensor_data_input" element={<SensorDataInput />} />
 
           <Route path="*" element={<h1>Not Found Page</h1>} />
 

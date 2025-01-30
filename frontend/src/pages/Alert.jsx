@@ -10,6 +10,7 @@ function Alert () {
             <h1>免許返納を行うことをつよく推奨します。</h1>
             <a href="https://www.keishicho.metro.tokyo.lg.jp/menkyo/koshin/jisyu_hennou/index.html" target="_blank" rel="noopener noreferrer" className="btn btn--red">免許返納について</a>
             <Link to="/detailed_result" className="btn btn--pink">詳しい結果を見る</Link>
+            <Link to="/" className="btn btn--pink">戻る</Link>
         </div>
     )
 }
