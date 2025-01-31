@@ -53,7 +53,7 @@ function DrivingHistory() {
 
   return (
     <div className="history-container">
-      <h1>過去の運転履歴</h1>
+      <h1 className="history-title">過去の運転履歴</h1>
       <div className="report-list">
         {reports.length === 0 ? (
           <p>運転履歴がありません</p>

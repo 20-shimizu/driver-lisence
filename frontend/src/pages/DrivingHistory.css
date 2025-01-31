@@ -11,6 +11,15 @@
   align-items: center;
 }
 
+.history-title {
+  font-size: 55px;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #333;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 /* スクロール可能なレポートリスト */
 .report-list {
   width: 100%;
@@ -55,6 +64,9 @@
   .history-container {
     padding: 15px;
   }
+  .history-title {
+    font-size: 45px;
+  }
   .report-list {
     max-height: 400px;
     padding: 5px;
@@ -72,6 +84,9 @@
   .history-container {
     max-width: 700px;
   }
+  .history-title {
+    font-size: 50px;
+  }
   .report-item {
     padding: 12px;
   }
@@ -80,6 +95,9 @@
 @media (min-width: 1025px) {
   .history-container {
     max-width: 900px;
+  }
+  .history-title {
+    font-size: 60px;
   }
 }
 
