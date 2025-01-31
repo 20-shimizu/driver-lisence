@@ -12,7 +12,7 @@ export default function UserRegistrationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ name, email, emailConfirm, birthDate, password });
-    alert("登録ボタンがクリックされました！");
+    alert("登録が完了しました！");
   };
 
   return (
