@@ -27,7 +27,7 @@ function Hub() {
           <Route path="/login_form" element={<LoginForm />} />
           <Route path="/user_registration" element={<UserRegistration />} />
           <Route path="/simple_result" element={<SimpleResult />} />
-          <Route path="/detailed_result" element={<DetailedResult />} />
+          <Route path="/detailed_result/:reportId" element={<DetailedResult />} />
           <Route path="/alert" element={<Alert />} />
           <Route path="/driving_history" element={<DrivingHistory />} />
           <Route path="/email_send" element={<EmailSend />} />

@@ -83,7 +83,7 @@ function DrivingHistory() {
                     className="warning-icon" />
                 }
                 </h2>
-              <Link to={`/detailed_result/${report.id}`} className="btn btn--purple">詳細を見る</Link>
+              <Link to={`/detailed_result/${report.reportId}`} className="btn btn--purple">詳細を見る</Link>
             </div>
           ))
         )}

@@ -1,10 +1,11 @@
 // 詳細結果画面
-import{ Link } from "react-router-dom";
+import{ Link, useParams } from "react-router-dom";
 import { getReportsByUserIdDriveReportsUsersUserIdGet, getUserMeUsersMeGet } from '../api/fastAPISample';
 import { useState, useEffect } from "react";
 import "./DetailedResult.css"
 
 function DetailedResult() {
+  const { reportId } = useParams();
   const [userId, setUserId] = useState(null);
   const [summaryComment, setSummaryComment] = useState("");
   const [accelerationComment, setAccelerationComment] = useState("");
@@ -30,19 +31,28 @@ function DetailedResult() {
 
       fetchUserData();
     } else {
-      setIsLoggedIn(false);
+      console.error("ログイン情報が見つかりません")
     }
   }, []);
 
   useEffect(() => {
     const fetchReportData = async () => {
       try {
-        const data = await getReportsByUserIdDriveReportsUsersUserIdGet(userId);
-        const latestData = data.data.at(-1);
-        setAccelerationComment(latestData.acceralationComment);
-        setBrakeComment(latestData.brakingComment);
-        setCorneringComment(latestData.corneringComment);
-        setSummaryComment(latestData.overallSummary);
+        const dataList = await getReportsByUserIdDriveReportsUsersUserIdGet(userId);
+        if (Number(reportId) === -1) {
+          const latestData = dataList.data.at(-1);
+          console.log(latestData);
+          setAccelerationComment(latestData.acceralationComment);
+          setBrakeComment(latestData.brakingComment);
+          setCorneringComment(latestData.corneringComment);
+          setSummaryComment(latestData.overallSummary);
+        } else {
+          const targetData = dataList.data.find(report => report.reportId === Number(reportId));
+          setAccelerationComment(targetData.acceralationComment);
+          setBrakeComment(targetData.brakingComment);
+          setCorneringComment(targetData.corneringComment);
+          setSummaryComment(targetData.overallSummary);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -83,7 +93,11 @@ function DetailedResult() {
       </div>
 
       <div className="button-container">
-        <Link to="/simple_result" className="btn btn--yellow">戻る</Link>
+        {Number(reportId) === -1 ? (
+          <Link to="/simple_result" className="btn btn--yellow">戻る</Link>
+        ) : (
+          <Link to="/driving_history" className="btn btn--yellow">戻る</Link>
+        )}
       </div>
     </div>
   );

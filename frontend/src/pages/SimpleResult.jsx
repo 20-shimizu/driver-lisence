@@ -58,7 +58,7 @@ function SimpleResult() {
             <h1>{drivingType} タイプでした！</h1>
             <h2>今日の運転データ</h2>
             {imagePath && <img src={imagePath} alt={drivingType} style={{ width: "200px", height: "200px" }} />}
-            <Link to="/detailed_result" className="btn btn--pink">詳しい結果をみる</Link>
+            <Link to="/detailed_result/-1" className="btn btn--pink">詳しい結果をみる</Link>
             <Link to="/email_send" className="btn btn--skyblue">結果を共有する</Link>
             <Link to="/" className="btn btn--yellow">メニュー画面に戻る</Link>
         </div>
