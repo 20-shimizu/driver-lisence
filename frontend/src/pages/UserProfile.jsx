@@ -64,8 +64,8 @@ function UserProfile() {
             <p className="profile-info">
                 年齢: <span>{userData.age}</span>
             </p>
-            <button className="logout-button" onClick={handleLogout}>ログアウト</button>
-            <Link to="/" className="logout-button">戻る</Link>
+            <button className="btn btn--red" onClick={handleLogout}>ログアウト</button>
+            <Link to="/" className="btn btn--purple">戻る</Link>
         </div>
     );
 }

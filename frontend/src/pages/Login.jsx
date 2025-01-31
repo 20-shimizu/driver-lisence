@@ -76,8 +76,8 @@ function LoginForm() {
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
         <div className="form-button-container">
-          <button type="submit" className="form-button">ログイン</button>
-          <Link to="/" className="form-button">戻る</Link>
+          <button type="submit" className="btn btn--green">ログイン</button>
+          <Link to="/" className="btn btn--purple">戻る</Link>
         </div>
       </form>
     </div>

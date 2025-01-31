@@ -1,75 +1,87 @@
-.container {
-  max-width: 400px;
-  margin: 0 auto;
+body {
+  background-color: #ffffff;
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.family-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 30px auto;
   padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90vh;
+  overflow: hidden;
 }
 
-h2 {
+.register-title {
   text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
 }
 
-form {
-  margin-bottom: 20px;
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-height: 250px;
+  margin-bottom: 10px;
 }
 
 .form-group {
   margin-bottom: 10px;
 }
-
-label {
+.form-label {
   display: block;
+  margin-bottom: 8px;
   font-weight: bold;
 }
-
-input {
+.form-input {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
+  padding: 12px;
   border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
 }
 
-button.submit-button {
-  background-color: blue;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+.info-list-title {
+  margin-top: 70px;
+  text-align: center;
+  font-size: 24px;
 }
 
-button.submit-button.edit-mode {
-  background-color: orange;
+.info-list-container {
+  /* width: 100%; */
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: calc(90vh - 300px);
+  padding-top: 10px;
 }
 
-ul {
-  list-style-type: none;
+.info-list-container ul {
   padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 100%;
 }
 
-li {
-  margin-bottom: 10px;
+.info-text {
+  font-size: 20px;
 }
 
-li div {
-  margin-top: 5px;
-}
-
-button.edit-button {
-  margin-right: 10px;
-  background-color: green;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-button.delete-button {
-  background-color: red;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+.info-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
