@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './UserRegistration.css'; // ★ 追加
-import { Link } from 'react-router-dom';
+import { TextField, Button, Card, CardContent, Typography } from '@mui/material';
+import './UserRegistration.css';
 
 export default function UserRegistrationForm() {
   const [name, setName] = useState("");
@@ -11,89 +11,81 @@ export default function UserRegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 入力チェックやバリデーションを行い、問題なければサーバーに送信
     console.log({ name, email, emailConfirm, birthDate, password });
-    alert("登録ボタンがクリックされました！");
+    alert("登録が完了しました！");
   };
 
   return (
     <div className="registration-container">
-      {/* カードUIを使いたい場合はラップして使う */}
-      <div className="registration-card">
-        <h1 className="registration-title">ユーザー登録</h1>
-        <form onSubmit={handleSubmit} className="registration-form">
-
-          {/* 名前 */}
-          <div className="form-group">
-            <label htmlFor="name" className="form-label">名前</label>
-            <input
+      <Card className="registration-card">
+        <CardContent>
+          <Typography variant="h5" component="div" gutterBottom>
+            ようこそ！
+          </Typography>
+          <form onSubmit={handleSubmit} className="registration-form">
+            <TextField
               id="name"
-              type="text"
+              label="名前"
+              variant="outlined"
+              fullWidth
+              margin="normal"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          {/* メールアドレス */}
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">メールアドレス</label>
-            <input
+            <TextField
               id="email"
+              label="メールアドレス"
               type="email"
+              variant="outlined"
+              fullWidth
+              margin="normal"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          {/* メールアドレス（確認） */}
-          <div className="form-group">
-            <label htmlFor="emailConfirm" className="form-label">メールアドレス（確認）</label>
-            <input
+            <TextField
               id="emailConfirm"
+              label="メールアドレス（確認）"
               type="email"
+              variant="outlined"
+              fullWidth
+              margin="normal"
               value={emailConfirm}
               onChange={(e) => setEmailConfirm(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          {/* 生年月日 */}
-          <div className="form-group">
-            <label htmlFor="birthDate" className="form-label">生年月日</label>
-            <input
+            <TextField
               id="birthDate"
+              label="生年月日"
               type="date"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          {/* パスワード */}
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">パスワード</label>
-            <input
+            <TextField
               id="password"
+              label="パスワード"
               type="password"
+              variant="outlined"
+              fullWidth
+              margin="normal"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          <button type="submit" className="form-button">
-            登録
-          </button>
-          <Link to="/">戻る</Link>
-        </form>
-      </div>
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              登録
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

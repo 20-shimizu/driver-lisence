@@ -20,6 +20,7 @@ html, body {
   align-items: center;
   min-height: 100vh; /* 画面全体の高さを確保 */
   background-color: #f5f5f5;
+  padding: 20px; /* パディングを追加して余白を確保 */
 }
 
 /* カード全体 */
@@ -32,6 +33,11 @@ html, body {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 20px; /* モバイルで画面端に張り付かないよう余白を追加 */
+  transition: transform 0.3s ease; /* ホバー時の効果を追加 */
+}
+
+.registration-card:hover {
+  transform: translateY(-5px); /* カードが少し浮き上がる効果 */
 }
 
 /* タイトル部分 */
@@ -40,6 +46,9 @@ html, body {
   margin-bottom: 20px;
   font-size: 28px;
   font-weight: bold;
+  color: #333;
+  word-wrap: break-word; /* 長いテキストがある場合に折り返す */
+  overflow-wrap: break-word;
 }
 
 /* フォームレイアウト */
@@ -57,6 +66,9 @@ html, body {
 .form-label {
   margin-bottom: 8px;
   font-weight: bold;
+  color: #555;
+  word-wrap: break-word; /* ラベルが長い場合に折り返す */
+  overflow-wrap: break-word;
 }
 
 .form-input {
@@ -64,6 +76,7 @@ html, body {
   border-radius: 4px;
   border: 1px solid #ccc;
   font-size: 16px;
+  transition: border-color 0.3s ease;
 }
 
 .form-input:focus {
@@ -82,10 +95,12 @@ html, body {
   border-radius: 5px;
   cursor: pointer;
   font-size: 18px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .form-button:hover {
   background-color: #45a049;
+  transform: scale(1.02); /* ホバー時にボタンが少し大きくなる効果 */
 }
 
 /* レスポンシブ対応 */
@@ -109,10 +124,57 @@ html, body {
     font-size: 16px;
     padding: 10px 0;
   }
+
+  .form-label {
+    font-size: 14px;
+  }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .registration-card {
     max-width: 700px;
   }
+
+  .registration-title {
+    font-size: 26px;
+  }
+
+  .form-input {
+    font-size: 15px;
+    padding: 11px;
+  }
+
+  .form-button {
+    font-size: 17px;
+    padding: 11px 0;
+  }
+
+  .form-label {
+    font-size: 15px;
+  }
 }
+
+@media (min-width: 1025px) {
+  .registration-card {
+    max-width: 800px;
+  }
+
+  .registration-title {
+    font-size: 28px;
+  }
+
+  .form-input {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .form-button {
+    font-size: 18px;
+    padding: 12px 0;
+  }
+
+  .form-label {
+    font-size: 16px;
+  }
+}
+

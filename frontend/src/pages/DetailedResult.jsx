@@ -39,7 +39,7 @@ function DetailedResult() {
         const data = await getReportsByUserIdDriveReportsUsersUserIdGet(userId);
         const latestData = data.data.at(-1);
         setAccelerationComment(latestData.acceralationComment);
-        setBrakeComment(latestData.acceralationComment);
+        setBrakeComment(latestData.brakingComment);
         setCorneringComment(latestData.corneringComment);
         setSummaryComment(latestData.overallSummary);
       } catch (err) {

@@ -10,14 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.64.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.0",
     "@tanstack/react-query": "^4.36.1",
     "axios": "^1.7.9",
+    "encoding-japanese": "^2.2.0",
+    "papaparse": "^5.5.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-dropzone": "^14.3.5",
     "react-query": "^3.39.3",
     "react-router-dom": "^7.1.3"
   },
