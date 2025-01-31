@@ -12,7 +12,7 @@ export default function UserRegistrationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ name, email, emailConfirm, birthDate, password });
-    alert("\E7\99\BB\E9\8C\B2\E3\83\9C\E3\82\BF\E3\83\B3\E3\81\8C\E3\82\AF\E3\83\AA\E3\83\83\E3\82\AF\E3\81\95\E3\82\8C\E3\81\BE\E3\81\97\E3\81\9F\EF\BC\81");
+    alert("登録ボタンがクリックされました！");
   };
 
   return (
@@ -20,12 +20,12 @@ export default function UserRegistrationForm() {
       <Card className="registration-card">
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>
-            \E3\83\A6\E3\83\BC\E3\82\B6\E3\83\BC\E7\99\BB\E9\8C\B2
+            ユーザー登録
           </Typography>
           <form onSubmit={handleSubmit} className="registration-form">
             <TextField
               id="name"
-              label="\E5\90\8D\E5\89\8D"
+              label="名前"
               variant="outlined"
               fullWidth
               margin="normal"
@@ -35,7 +35,7 @@ export default function UserRegistrationForm() {
             />
             <TextField
               id="email"
-              label="\E3\83\A1\E3\83\BC\E3\83\AB\E3\82\A2\E3\83\89\E3\83\AC\E3\82\B9"
+              label="メールアドレス"
               type="email"
               variant="outlined"
               fullWidth
@@ -46,7 +46,7 @@ export default function UserRegistrationForm() {
             />
             <TextField
               id="emailConfirm"
-              label="\E3\83\A1\E3\83\BC\E3\83\AB\E3\82\A2\E3\83\89\E3\83\AC\E3\82\B9\EF\BC\88\E7\A2\BA\E8\AA\8D\EF\BC\89"
+              label="メールアドレス（確認）"
               type="email"
               variant="outlined"
               fullWidth
@@ -57,7 +57,7 @@ export default function UserRegistrationForm() {
             />
             <TextField
               id="birthDate"
-              label="\E7\94\9F\E5\B9\B4\E6\9C\88\E6\97\A5"
+              label="生年月日"
               type="date"
               variant="outlined"
               fullWidth
@@ -71,7 +71,7 @@ export default function UserRegistrationForm() {
             />
             <TextField
               id="password"
-              label="\E3\83\91\E3\82\B9\E3\83\AF\E3\83\BC\E3\83\89"
+              label="パスワード"
               type="password"
               variant="outlined"
               fullWidth
@@ -81,7 +81,7 @@ export default function UserRegistrationForm() {
               required
             />
             <Button type="submit" variant="contained" color="primary" fullWidth>
-              \E7\99\BB\E9\8C\B2
+              登録
             </Button>
           </form>
         </CardContent>
