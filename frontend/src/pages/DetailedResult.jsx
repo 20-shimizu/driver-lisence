@@ -2,6 +2,7 @@
 import{ Link } from "react-router-dom";
 import { getReportsByUserIdDriveReportsUsersUserIdGet, getUserMeUsersMeGet } from '../api/fastAPISample';
 import { useState, useEffect } from "react";
+import "./DetailedResult.css"
 
 function DetailedResult() {
   const [userId, setUserId] = useState(null);
@@ -51,14 +52,39 @@ function DetailedResult() {
       fetchReportData();
     }
   }, [userId]);
-  return (
-    <div>
-      <h4>急加速に関するコメント：{accelerationComment}</h4>
-      <h4>急ブレーキに関するコメント：{brakeComment}</h4>
-      <h4>急ハンドルに関するコメント：{corneringComment}</h4>
-      <h4>全体のコメント：{summaryComment}</h4>
-      <Link to="/simple_result" className="btn btn--yellow">戻る</Link>
 
+
+  return (
+    <div className="detailed-result">
+      <div className="result-container">
+        <h2 className="title">本日の結果</h2>
+
+        <div className="comment-container">
+          <div className="comment-section">
+            <h4 className="comment-title">急加速に関するコメント</h4>
+            <p className="comment-text">{accelerationComment}</p>
+          </div>
+
+          <div className="comment-section">
+            <h4 className="comment-title">急ブレーキに関するコメント</h4>
+            <p className="comment-text">{brakeComment}</p>
+          </div>
+
+          <div className="comment-section">
+            <h4 className="comment-title">急ハンドルに関するコメント</h4>
+            <p className="comment-text">{corneringComment}</p>
+          </div>
+
+          <div className="summary-section">
+            <h4 className="summary-title">全体のコメント</h4>
+            <p className="summary-text">{summaryComment}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="button-container">
+        <Link to="/simple_result" className="btn btn--yellow">戻る</Link>
+      </div>
     </div>
   );
 };

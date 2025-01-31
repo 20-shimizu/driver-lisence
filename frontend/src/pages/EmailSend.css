@@ -1,0 +1,38 @@
+.email-send-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+p {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #666;
+}
+
+p.error {
+  color: red;
+  font-weight: bold;
+}
+
+p.success {
+  color: green;
+  font-weight: bold;
+}
+
+p.loading {
+  color: blue;
+  font-weight: bold;
+}
+
