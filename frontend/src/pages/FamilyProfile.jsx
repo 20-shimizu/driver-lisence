@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './FamilyProfile.css';
 import { getFamiliesByUserIdFamiliesUsersUserIdGet, getUserMeUsersMeGet, useCreateFamilyFamiliesRegisterPost, useDeleteFamilyFamiliesIdDelete, useUpdateFamilyFamiliesIdPut } from '../api/fastAPISample';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function FamilyProfile() {
   const navigate = useNavigate();
@@ -121,8 +121,6 @@ function FamilyProfile() {
 
       setEditIndex(null);
     }
-
-    // setEditIndex(null);
   };
 
   const handleEdit = (index) => {
@@ -131,6 +129,12 @@ function FamilyProfile() {
   };
 
   const handleDelete = (id) => {
+    const isConfirmed = window.confirm("本当に削除しますか？");
+
+    if (!isConfirmed) {
+      return;
+    }
+
     deleteMutation.mutate(
       {id},
       {
@@ -176,6 +180,8 @@ function FamilyProfile() {
         >
           {editIndex !== null ? '更新' : '登録'}
         </button>
+        
+        <Link to="/" className="submit-button">戻る</Link>
       </form>
       <h3>登録された家族情報</h3>
       {familyData && familyData.length > 0 && (

@@ -28,6 +28,8 @@ const api = axios.create({
   baseURL: 'http://localhost:8000',
 });
 
+export type GetFamiliesByUserIdFamiliesUsersUserIdGet200 = FamilyResponse[] | null;
+
 export type GetInfoGet200 = {[key: string]: string};
 
 export type ValidationErrorLocItem = string | number;
@@ -78,7 +80,7 @@ export interface Token {
 }
 
 export interface SensorResponse {
-  reportId: number;
+  userId: number;
   startedAt: string;
   endedAt: string;
   /** @minimum 0 */
@@ -103,7 +105,7 @@ export interface SensorResponse {
 }
 
 export interface SensorBase {
-  reportId: number;
+  userId: number;
   startedAt: string;
   endedAt: string;
   /** @minimum 0 */
@@ -124,6 +126,67 @@ export interface SensorBase {
   brakingCount: number;
   /** @minimum 0 */
   corneringCount: number;
+}
+
+/**
+ * コーナリングに関するコメント
+ */
+export type ReportResponseCorneringComment = string | null;
+
+/**
+ * ブレーキに関するコメント
+ */
+export type ReportResponseBrakingComment = string | null;
+
+/**
+ * 加速に関するコメント
+ */
+export type ReportResponseAcceralationComment = string | null;
+
+/**
+ * レポートの全体的な概要
+ */
+export type ReportResponseOverallSummary = string | null;
+
+export type ReportEvaluationStatus = typeof ReportEvaluationStatus[keyof typeof ReportEvaluationStatus];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ReportEvaluationStatus = {
+  NUMBER_1: 1,
+  NUMBER_2: 2,
+} as const;
+
+export type ReportDrivingType = typeof ReportDrivingType[keyof typeof ReportDrivingType];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ReportDrivingType = {
+  NUMBER_1: 1,
+  NUMBER_2: 2,
+  NUMBER_3: 3,
+  NUMBER_4: 4,
+  NUMBER_5: 5,
+} as const;
+
+export interface ReportResponse {
+  /** ユーザーID */
+  userId: number;
+  /** センサーID */
+  sensorId: number;
+  /** 運転タイプ（ENUMの候補） */
+  drivingType: ReportDrivingType;
+  /** 評価ステータス（ENUMの候補） */
+  evaluationStatus: ReportEvaluationStatus;
+  /** レポートの全体的な概要 */
+  overallSummary?: ReportResponseOverallSummary;
+  /** 加速に関するコメント */
+  acceralationComment?: ReportResponseAcceralationComment;
+  /** ブレーキに関するコメント */
+  brakingComment?: ReportResponseBrakingComment;
+  /** コーナリングに関するコメント */
+  corneringComment?: ReportResponseCorneringComment;
+  reportId: number;
 }
 
 export interface HTTPValidationError {
@@ -596,7 +659,7 @@ export const useCreateUserUsersRegisterPost = <TData = Awaited<ReturnType<typeof
  */
 export const getFamiliesByUserIdFamiliesUsersUserIdGet = (
     userId: number, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<FamilyResponse[]>> => {
+ ): Promise<AxiosResponse<GetFamiliesByUserIdFamiliesUsersUserIdGet200>> => {
     
     
     return api.get(
@@ -899,56 +962,240 @@ export const useCreateFamilyFamiliesRegisterPost = <TData = Awaited<ReturnType<t
     }
     
 /**
- * @summary Get Sensor
+ * @summary Get Reports By User Id
  */
-export const getSensorDriveSensorsReportIdGet = (
-    reportId: number, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<SensorResponse>> => {
+export const getReportsByUserIdDriveReportsUsersUserIdGet = (
+    userId: number, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<ReportResponse[]>> => {
     
     
     return api.get(
-      `/drive_sensors/${reportId}`,options
+      `/drive_reports/users/${userId}`,options
     );
   }
 
 
-export const getGetSensorDriveSensorsReportIdGetQueryKey = (reportId: number,) => {
-    return [`/drive_sensors/${reportId}`] as const;
+export const getGetReportsByUserIdDriveReportsUsersUserIdGetQueryKey = (userId: number,) => {
+    return [`/drive_reports/users/${userId}`] as const;
     }
 
     
-export const getGetSensorDriveSensorsReportIdGetQueryOptions = <TData = Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError = AxiosError<HTTPValidationError>>(reportId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+export const getGetReportsByUserIdDriveReportsUsersUserIdGetQueryOptions = <TData = Awaited<ReturnType<typeof getReportsByUserIdDriveReportsUsersUserIdGet>>, TError = AxiosError<HTTPValidationError>>(userId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getReportsByUserIdDriveReportsUsersUserIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
 ) => {
 
 const {query: queryOptions, axios: axiosOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetSensorDriveSensorsReportIdGetQueryKey(reportId);
+  const queryKey =  queryOptions?.queryKey ?? getGetReportsByUserIdDriveReportsUsersUserIdGetQueryKey(userId);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>> = ({ signal }) => getSensorDriveSensorsReportIdGet(reportId, { signal, ...axiosOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getReportsByUserIdDriveReportsUsersUserIdGet>>> = ({ signal }) => getReportsByUserIdDriveReportsUsersUserIdGet(userId, { signal, ...axiosOptions });
 
       
 
       
 
-   return  { queryKey, queryFn, enabled: !!(reportId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, enabled: !!(userId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getReportsByUserIdDriveReportsUsersUserIdGet>>, TError, TData> & { queryKey: QueryKey }
 }
 
-export type GetSensorDriveSensorsReportIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>>
-export type GetSensorDriveSensorsReportIdGetQueryError = AxiosError<HTTPValidationError>
+export type GetReportsByUserIdDriveReportsUsersUserIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof getReportsByUserIdDriveReportsUsersUserIdGet>>>
+export type GetReportsByUserIdDriveReportsUsersUserIdGetQueryError = AxiosError<HTTPValidationError>
 
 
 /**
- * @summary Get Sensor
+ * @summary Get Reports By User Id
  */
 
-export function useGetSensorDriveSensorsReportIdGet<TData = Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError = AxiosError<HTTPValidationError>>(
- reportId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSensorDriveSensorsReportIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+export function useGetReportsByUserIdDriveReportsUsersUserIdGet<TData = Awaited<ReturnType<typeof getReportsByUserIdDriveReportsUsersUserIdGet>>, TError = AxiosError<HTTPValidationError>>(
+ userId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getReportsByUserIdDriveReportsUsersUserIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
-  const queryOptions = getGetSensorDriveSensorsReportIdGetQueryOptions(reportId,options)
+  const queryOptions = getGetReportsByUserIdDriveReportsUsersUserIdGetQueryOptions(userId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Create Report
+ */
+export const createReportDriveReportsUsersUserIdPost = (
+    userId: number, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<ReportResponse>> => {
+    
+    
+    return api.post(
+      `/drive_reports/users/${userId}`,undefined,options
+    );
+  }
+
+
+
+export const getCreateReportDriveReportsUsersUserIdPostMutationOptions = <TData = Awaited<ReturnType<typeof createReportDriveReportsUsersUserIdPost>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{userId: number}, TContext>, axios?: AxiosRequestConfig}
+) => {
+const mutationKey = ['createReportDriveReportsUsersUserIdPost'];
+const {mutation: mutationOptions, axios: axiosOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, axios: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createReportDriveReportsUsersUserIdPost>>, {userId: number}> = (props) => {
+          const {userId} = props ?? {};
+
+          return  createReportDriveReportsUsersUserIdPost(userId,axiosOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions } as UseMutationOptions<TData, TError,{userId: number}, TContext>}
+
+    export type CreateReportDriveReportsUsersUserIdPostMutationResult = NonNullable<Awaited<ReturnType<typeof createReportDriveReportsUsersUserIdPost>>>
+    
+    export type CreateReportDriveReportsUsersUserIdPostMutationError = AxiosError<HTTPValidationError>
+
+    /**
+ * @summary Create Report
+ */
+export const useCreateReportDriveReportsUsersUserIdPost = <TData = Awaited<ReturnType<typeof createReportDriveReportsUsersUserIdPost>>, TError = AxiosError<HTTPValidationError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<TData, TError,{userId: number}, TContext>, axios?: AxiosRequestConfig}
+): UseMutationResult<
+        TData,
+        TError,
+        {userId: number},
+        TContext
+      > => {
+
+      const mutationOptions = getCreateReportDriveReportsUsersUserIdPostMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+/**
+ * @summary Get Report
+ */
+export const getReportDriveReportsIdGet = (
+    id: number, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<ReportResponse>> => {
+    
+    
+    return api.get(
+      `/drive_reports/${id}`,options
+    );
+  }
+
+
+export const getGetReportDriveReportsIdGetQueryKey = (id: number,) => {
+    return [`/drive_reports/${id}`] as const;
+    }
+
+    
+export const getGetReportDriveReportsIdGetQueryOptions = <TData = Awaited<ReturnType<typeof getReportDriveReportsIdGet>>, TError = AxiosError<HTTPValidationError>>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getReportDriveReportsIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+) => {
+
+const {query: queryOptions, axios: axiosOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetReportDriveReportsIdGetQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getReportDriveReportsIdGet>>> = ({ signal }) => getReportDriveReportsIdGet(id, { signal, ...axiosOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getReportDriveReportsIdGet>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetReportDriveReportsIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof getReportDriveReportsIdGet>>>
+export type GetReportDriveReportsIdGetQueryError = AxiosError<HTTPValidationError>
+
+
+/**
+ * @summary Get Report
+ */
+
+export function useGetReportDriveReportsIdGet<TData = Awaited<ReturnType<typeof getReportDriveReportsIdGet>>, TError = AxiosError<HTTPValidationError>>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getReportDriveReportsIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetReportDriveReportsIdGetQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Get Sensor By User Id
+ */
+export const getSensorByUserIdDriveSensorsUsersUserIdGet = (
+    userId: number, options?: AxiosRequestConfig
+ ): Promise<AxiosResponse<SensorResponse>> => {
+    
+    
+    return api.get(
+      `/drive_sensors/users/${userId}`,options
+    );
+  }
+
+
+export const getGetSensorByUserIdDriveSensorsUsersUserIdGetQueryKey = (userId: number,) => {
+    return [`/drive_sensors/users/${userId}`] as const;
+    }
+
+    
+export const getGetSensorByUserIdDriveSensorsUsersUserIdGetQueryOptions = <TData = Awaited<ReturnType<typeof getSensorByUserIdDriveSensorsUsersUserIdGet>>, TError = AxiosError<HTTPValidationError>>(userId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSensorByUserIdDriveSensorsUsersUserIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+) => {
+
+const {query: queryOptions, axios: axiosOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetSensorByUserIdDriveSensorsUsersUserIdGetQueryKey(userId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getSensorByUserIdDriveSensorsUsersUserIdGet>>> = ({ signal }) => getSensorByUserIdDriveSensorsUsersUserIdGet(userId, { signal, ...axiosOptions });
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(userId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getSensorByUserIdDriveSensorsUsersUserIdGet>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetSensorByUserIdDriveSensorsUsersUserIdGetQueryResult = NonNullable<Awaited<ReturnType<typeof getSensorByUserIdDriveSensorsUsersUserIdGet>>>
+export type GetSensorByUserIdDriveSensorsUsersUserIdGetQueryError = AxiosError<HTTPValidationError>
+
+
+/**
+ * @summary Get Sensor By User Id
+ */
+
+export function useGetSensorByUserIdDriveSensorsUsersUserIdGet<TData = Awaited<ReturnType<typeof getSensorByUserIdDriveSensorsUsersUserIdGet>>, TError = AxiosError<HTTPValidationError>>(
+ userId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSensorByUserIdDriveSensorsUsersUserIdGet>>, TError, TData>, axios?: AxiosRequestConfig}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetSensorByUserIdDriveSensorsUsersUserIdGetQueryOptions(userId,options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

@@ -1,0 +1,180 @@
+[33mcommit 6c7d448221927cca588d8044c7aa4e6990d2775b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mresultUI[m[33m)[m
+Merge: 16cccfe 4cbea4f
+Author: minonai <macrophagetoruna@gmail.com>
+Date:   Mon Jan 20 15:45:44 2025 +0900
+
+    Merge remote-tracking branch 'origin/main' into resultUI
+
+[33mcommit 4cbea4fda0316ebcbf91a74faa2e235db2f410c8[m[33m ([m[1;31morigin/main[m[33m)[m
+Merge: 80e5801 60ade27
+Author: 20-tomoya <116053130+20-tomoya@users.noreply.github.com>
+Date:   Mon Jan 20 13:49:58 2025 +0900
+
+    Merge pull request #32 from 20-shimizu/ito/top_page
+    
+    modify top page
+
+[33mcommit 60ade272588fc54c952f983adb0794b11d28288a[m[33m ([m[1;31morigin/ito/top_page[m[33m)[m
+Author: shimizu <reborn.titech@gmail.com>
+Date:   Sun Jan 19 14:32:58 2025 +0900
+
+    modify placement
+
+[33mcommit 16cccfe184c5fd243ce6823ae18e0399ce588582[m[33m ([m[1;31morigin/resultUI[m[33m)[m
+Author: minonai <macrophagetoruna@gmail.com>
+Date:   Fri Jan 17 18:28:58 2025 +0900
+
+    add #3 ボタンの色の整理。dbを利用する場所の同定。
+
+[33mcommit a29a012100e15983686a00999fcfe9b30097549e[m
+Author: 20-tomoya <116053130+20-tomoya@users.noreply.github.com>
+Date:   Fri Jan 17 17:50:10 2025 +0900
+
+    update top
+
+[33mcommit 45b71ecb4b487ce8dc17c3c5ae65c543f8ac7c45[m
+Author: 20-tomoya <116053130+20-tomoya@users.noreply.github.com>
+Date:   Fri Jan 17 16:35:44 2025 +0900
+
+    add top page
+
+[33mcommit 80e58011b0cc87a3a20efac6e1e5e77e03ebf34c[m
+Merge: ce925c4 79b9978
+Author: 20-shimizu <112689116+20-shimizu@users.noreply.github.com>
+Date:   Fri Jan 17 15:52:26 2025 +0900
+
+    Merge pull request #31 from 20-shimizu/shimizu/email_api
+    
+    Email Send API
+
+[33mcommit bb337a87fc7bd1abf93af1686de9dbdb15e05d73[m
+Author: minonai <macrophagetoruna@gmail.com>
+Date:   Thu Jan 16 12:49:32 2025 +0900
+
+    Add #2 運転結果のページをついか
+
+[33mcommit 7bed2f45dd88c97539dc56edb589c3679ba92f80[m
+Author: minonai <macrophagetoruna@gmail.com>
+Date:   Fri Jan 10 04:07:00 2025 +0900
+
+    Add Routing in main.jsx
+
+[33mcommit 79b9978b8ff9747b6ad01332e1af81343edac945[m[33m ([m[1;31morigin/shimizu/email_api[m[33m)[m
+Author: shimizu <reborn.titech@gmail.com>
+Date:   Sat Dec 28 18:20:17 2024 +0900
+
+    add share api for gmail address
+
+[33mcommit ce925c4d24f67dd9275e5739c621df3d6e17eb75[m[33m ([m[1;31morigin/toriyama/alert_page[m[33m)[m
+Merge: fee3b51 fbe8d66
+Author: 20-shimizu <112689116+20-shimizu@users.noreply.github.com>
+Date:   Mon Dec 23 22:32:25 2024 +0900
+
+    Merge pull request #30 from 20-shimizu/users_api
+    
+    Users api
+
+[33mcommit fbe8d6663dfa97a19f3f6f91dbdb7f730700b5c6[m[33m ([m[1;31morigin/users_api[m[33m)[m
+Author: shimizu <reborn.titech@gmail.com>
+Date:   Mon Dec 23 22:30:42 2024 +0900
+
+    add validation
+
+[33mcommit 0c895b458afb6d663711520d752d3a838b89a4f5[m
+Author: shimizu <reborn.titech@gmail.com>
+Date:   Mon Dec 23 18:29:25 2024 +0900
+
+    modify get api
+
+[33mcommit dc6ef8b8d0d8f6881bfdc35f9536ba9bb40b65c6[m
+Author: shimizu <reborn.titech@gmail.com>
+Date:   Mon Dec 23 17:59:16 2024 +0900
+
+    update api
+
+[33mcommit 9934e0d32cc7df111235230a21a947a975f2735f[m
+Merge: 2c4653b 30bcee2
+Author: shimizu <reborn.titech@gmail.com>
+Date:   Mon Dec 23 16:38:08 2024 +0900
+
+    Merge branch 'hironaga/db-migration' into users_api
+
+[33mcommit fee3b5184d61f2ee753e9eb49c55e6838cfa0f6b[m
+Merge: 5f32398 89ec293
+Author: Yuta Hironaga <81722907+hironaga-1@users.noreply.github.com>
+Date:   Mon Dec 23 16:35:02 2024 +0900
+
+    Merge pull request #29 from 20-shimizu/hironaga-1-patch-1
+    
+    Create pull_request_template.md
+
+[33mcommit 5f3239812d5696dbc05fe85f3d43e401aed0d998[m
+Merge: 769731a 30bcee2
+Author: Yuta Hironaga <81722907+hironaga-1@users.noreply.github.com>
+Date:   Mon Dec 23 16:34:45 2024 +0900
+
+    Merge pull request #28 from 20-shimizu/hironaga/db-migration
+    
+    Back: DB migration
+
+[33mcommit 89ec293b6feb5fde0ff4d475343c2260610925bf[m[33m ([m[1;31morigin/hironaga-1-patch-1[m[33m)[m
+Author: Yuta Hironaga <81722907+hironaga-1@users.noreply.github.com>
+Date:   Mon Dec 23 16:32:25 2024 +0900
+
+    Create pull_request_template.md
+    
+    add pull_request template
+
+[33mcommit 30bcee20c51179df2296cb44839ef24ed51ae107[m[33m ([m[1;31morigin/hironaga/db-migration[m[33m)[m
+Author: hironaga-1 <oretachisanta410@gmail.com>
+Date:   Mon Dec 23 16:21:28 2024 +0900
+
+    modify README
+
+[33mcommit adaf7f073b61ca4344a8ce5c59c78116b69a6e23[m
+Author: hironaga-1 <oretachisanta410@gmail.com>
+Date:   Mon Dec 23 16:19:33 2024 +0900
+
+    modify models
+
+[33mcommit b2f2eeedc81325850eb881bd7bf6666c1b3843b9[m
+Author: hironaga-1 <oretachisanta410@gmail.com>
+Date:   Mon Dec 23 16:18:04 2024 +0900
+
+    add sqlalechmy
+
+[33mcommit 305feda7f7eadf1f4a2c6b7b372a43b6ef439d93[m
+Author: hironaga-1 <oretachisanta410@gmail.com>
+Date:   Mon Dec 23 16:17:21 2024 +0900
+
+    set up alembic
+
+[33mcommit 2c4653b7ef3334d8649dd0bf154fe2388c379a8e[m
+Author: shimizu <reborn.titech@gmail.com>
+Date:   Mon Dec 23 15:42:45 2024 +0900
+
+    add sqlite support
+
+[33mcommit 2b52e12e5477580cf3e97102f0557db51dff81ce[m
+Author: shimizu <reborn.titech@gmail.com>
+Date:   Mon Dec 23 15:12:06 2024 +0900
+
+    add users api from template
+
+[33mcommit 769731a2d7829c64c9b21b2c4f21a5e3325ac1a5[m[33m ([m[1;32mmaster[m[33m)[m
+Author: shimizu <reborn.titech@gmail.com>
+Date:   Mon Dec 16 18:07:17 2024 +0900
+
+    add frontend and backend
+
+[33mcommit 53cb43963bd55e1c80bc73e053eb51fd854fa5ac[m
+Author: minonai <37744038+minonai@users.noreply.github.com>
+Date:   Mon Dec 16 15:44:55 2024 +0900
+
+    Update README.md
+
+[33mcommit 3eb9cd7e6f9da5418fd365d8883e77c14a0c0449[m
+Author: 20-shimizu <112689116+20-shimizu@users.noreply.github.com>
+Date:   Mon Nov 18 16:24:45 2024 +0900
+
+    Initial commit

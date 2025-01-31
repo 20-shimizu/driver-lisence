@@ -11,6 +11,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  display: block;
 }
 
 a {
@@ -28,11 +30,15 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  width: 100%;
+  overflow: hidden;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  text-align: center;
 }
 
 button {
@@ -65,4 +71,114 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.App {
+  width: 400px;
+  height: 750px;
+  margin: 0px auto;
+  padding: 0 0px;
+  color: #1a1a1a;
+  background-color: #f9f9f9;
+  display: block;
+}
+.Back{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing:border-box;
+  background-color: #000000;
+  display: block;
+}
+
+
+.btn--pink {
+  color: #fff;
+  background-color: #ff0080;
+  border-bottom: 5px groove dimgray;
+}
+.btn--pink:hover {
+  color: #65558f;
+  background: lavender;
+  border-bottom: 5px groove darkgray;
+}
+.btn--red {
+  color: #fff;
+  background-color: red;
+  border-bottom: 5px groove dimgray;
+}
+.btn--red:hover {
+  color: #65558f;
+  background: lavender;
+  border-bottom: 5px groove darkgray;
+}
+.btn--skyblue {
+  color: #fff;
+  background-color: #00a6ff;
+  border-bottom: 5px groove dimgray;
+}
+.btn--skyblue:hover {
+  color: #65558f;
+  background: lavender;
+  border-bottom: 5px groove darkgray;
+}
+.btn--yellow {
+  color: #fff;
+  background-color: #ffbb00;
+  border-bottom: 5px groove dimgray;
+}
+.btn--yellow:hover {
+  color: #65558f;
+  background: lavender;
+  border-bottom: 5px groove darkgray;
+}
+.btn--purple {
+  color: #fff;
+  background-color: #65558f;
+  border-bottom: 5px groove dimgray;
+}
+.btn--purple:hover {
+  color: #65558f;
+  background: lavender;
+  border-bottom: 5px groove darkgray;
+}
+.btn--green {
+  color: #fff;
+  background-color: #4dff00;
+  border-bottom: 5px groove dimgray;
+}
+.btn--green:hover {
+  color: #65558f;
+  background: lavender;
+  border-bottom: 5px groove darkgray;
+}
+
+
+.btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 80px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 40px;
+  font-weight: bold;
+}
+.btn--mini{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 60px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  border-radius: 40px;
+  font-weight: bold;
 }
