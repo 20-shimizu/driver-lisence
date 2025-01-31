@@ -1,8 +1,6 @@
-// ユーザー登録画面
 import React, { useState } from 'react';
-import './UserRegistrationForm.css'; // ★ 追加
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { TextField, Button, Card, CardContent, Typography } from '@mui/material';
+import './UserRegistration.css';
 
 export default function UserRegistrationForm() {
   const [name, setName] = useState("");
@@ -11,91 +9,83 @@ export default function UserRegistrationForm() {
   const [birthDate, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // 入力チェックやバリデーションを行い、問題なければサーバーに送信
     console.log({ name, email, emailConfirm, birthDate, password });
-    alert("登録ボタンがクリックされました！");
+    alert("\E7\99\BB\E9\8C\B2\E3\83\9C\E3\82\BF\E3\83\B3\E3\81\8C\E3\82\AF\E3\83\AA\E3\83\83\E3\82\AF\E3\81\95\E3\82\8C\E3\81\BE\E3\81\97\E3\81\9F\EF\BC\81");
   };
 
   return (
     <div className="registration-container">
-      {/* カードUIを使いたい場合はラップして使う */}
-      <div className="registration-card">
-        <h1 className="registration-title">ユーザー登録</h1>
-        <form onSubmit={handleSubmit} className="registration-form">
-
-          {/* 名前 */}
-          <div className="form-group">
-            <label htmlFor="name" className="form-label">名前</label>
-            <input
+      <Card className="registration-card">
+        <CardContent>
+          <Typography variant="h5" component="div" gutterBottom>
+            \E3\83\A6\E3\83\BC\E3\82\B6\E3\83\BC\E7\99\BB\E9\8C\B2
+          </Typography>
+          <form onSubmit={handleSubmit} className="registration-form">
+            <TextField
               id="name"
-              type="text"
+              label="\E5\90\8D\E5\89\8D"
+              variant="outlined"
+              fullWidth
+              margin="normal"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          {/* メールアドレス */}
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">メールアドレス</label>
-            <input
+            <TextField
               id="email"
+              label="\E3\83\A1\E3\83\BC\E3\83\AB\E3\82\A2\E3\83\89\E3\83\AC\E3\82\B9"
               type="email"
+              variant="outlined"
+              fullWidth
+              margin="normal"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          {/* メールアドレス（確認） */}
-          <div className="form-group">
-            <label htmlFor="emailConfirm" className="form-label">メールアドレス（確認）</label>
-            <input
+            <TextField
               id="emailConfirm"
+              label="\E3\83\A1\E3\83\BC\E3\83\AB\E3\82\A2\E3\83\89\E3\83\AC\E3\82\B9\EF\BC\88\E7\A2\BA\E8\AA\8D\EF\BC\89"
               type="email"
+              variant="outlined"
+              fullWidth
+              margin="normal"
               value={emailConfirm}
               onChange={(e) => setEmailConfirm(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          {/* 生年月日 */}
-          <div className="form-group">
-            <label htmlFor="birthDate" className="form-label">生年月日</label>
-            <input
+            <TextField
               id="birthDate"
+              label="\E7\94\9F\E5\B9\B4\E6\9C\88\E6\97\A5"
               type="date"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          {/* パスワード */}
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">パスワード</label>
-            <input
+            <TextField
               id="password"
+              label="\E3\83\91\E3\82\B9\E3\83\AF\E3\83\BC\E3\83\89"
               type="password"
+              variant="outlined"
+              fullWidth
+              margin="normal"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="form-input"
               required
             />
-          </div>
-
-          <button type="submit" className="form-button">
-            登録
-          </button>
-        </form>
-      </div>
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              \E7\99\BB\E9\8C\B2
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }
-
