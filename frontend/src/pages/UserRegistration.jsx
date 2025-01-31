@@ -20,7 +20,7 @@ export default function UserRegistrationForm() {
       <Card className="registration-card">
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>
-            ユーザー登録
+            ようこそ！
           </Typography>
           <form onSubmit={handleSubmit} className="registration-form">
             <TextField
