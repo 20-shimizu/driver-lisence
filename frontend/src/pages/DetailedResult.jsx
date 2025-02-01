@@ -66,7 +66,7 @@ function DetailedResult() {
 
   return (
     <div className="detailed-result">
-      <div className="result-container">
+      <div className="detail-container">
         <h2 className="title">本日の結果</h2>
 
         <div className="comment-container">

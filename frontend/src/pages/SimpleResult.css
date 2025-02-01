@@ -1,0 +1,68 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: inherit;
+  text-align: center;
+  padding: 20px;
+  padding-top: 60px;
+}
+
+.result-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.result-subtitle {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.driving-type {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* タイプごとの色（カスタマイズ可能） */
+.driving-type.急加速・急減速 {
+  color: blue;
+}
+
+.driving-type.急ハンドル {
+  color: red;
+}
+
+.driving-type.速度超過 {
+  color: orange;
+}
+
+.driving-type.速度不足 {
+  color: green;
+}
+
+.driving-type.車間距離不足 {
+  color: brown;
+}
+
+.result-image {
+  width: 180px;
+  height: 150px;
+  margin-bottom: 15px;
+}
+
+.link-container {
+  display: flex;
+  flex-direction: column;
+}

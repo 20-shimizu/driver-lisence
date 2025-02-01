@@ -1,0 +1,95 @@
+/* Alert.css */
+
+.alert-container {
+  background-color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.alert-title {
+  color: red;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.alert-warning {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.alert-danger {
+  color: red;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.alert-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.alert-message {
+  color: yellow;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.alert-recommendation {
+  color: red;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.alert-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.alert-button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.alert-button-red {
+  background-color: red;
+  color: white;
+}
+
+.alert-button-red:hover {
+  background-color: darkred;
+}
+
+.alert-button-pink {
+  background-color: pink;
+  color: white;
+}
+
+.alert-button-pink:hover {
+  background-color: hotpink;
+}
+
+.alert-button-gray {
+  background-color: gray;
+  color: white;
+}
+
+.alert-button-gray:hover {
+  background-color: darkgray;
+}
