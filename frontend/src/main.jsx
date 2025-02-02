@@ -8,7 +8,7 @@ import Top from './pages/Top.jsx';
 import SimpleResult from "./pages/SimpleResult.jsx";
 import DetailedResult from "./pages/DetailedResult.jsx";
 import DrivingHistory from "./pages/DrivingHistory.jsx";
-// import EmailSendForm from "./pages/FamilyProfile.jsx";
+import EmailSend from './pages/EmailSend.jsx';
 import LoginForm from "./pages/Login.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 import UserRegistration from "./pages/UserRegistration.jsx";
@@ -27,10 +27,10 @@ function Hub() {
           <Route path="/login_form" element={<LoginForm />} />
           <Route path="/user_registration" element={<UserRegistration />} />
           <Route path="/simple_result" element={<SimpleResult />} />
-          <Route path="/detailed_result" element={<DetailedResult />} />
+          <Route path="/detailed_result/:reportId" element={<DetailedResult />} />
           <Route path="/alert" element={<Alert />} />
           <Route path="/driving_history" element={<DrivingHistory />} />
-          {/* <Route path="/email_sendform" element={<EmailSendForm />} /> */}
+          <Route path="/email_send" element={<EmailSend />} />
           <Route path="/family_profile" element={<FamilyProfile />} />
           <Route path="/user_profile" element={<UserProfile />} />
           <Route path="/sensor_data_input" element={<SensorDataInput />} />

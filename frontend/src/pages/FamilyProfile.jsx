@@ -149,64 +149,58 @@ function FamilyProfile() {
   };
 
   return (
-    <div className="container">
-      <h2>家族情報登録</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="family-container">
+      <h2 className="register-title">家族情報登録</h2>
+      <form onSubmit={handleSubmit} className="register-form">
         <div className="form-group">
-          <label>
-            名前:
-            <input
-              type="text"
-              name="familyName"
-              value={familyInput.familyName}
-              onChange={handleChange}
-            />
-          </label>
+          <label className="form-label">名前</label>
+          <input
+            type="text"
+            name="familyName"
+            value={familyInput.familyName}
+            onChange={handleChange}
+            className="form-input"
+          />
         </div>
         <div className="form-group">
-          <label>
-            メールアドレス:
-            <input
-              type="email"
-              name="email"
-              value={familyInput.email}
-              onChange={handleChange}
-            />
-          </label>
+          <label className="form-label">メールアドレス</label>
+          <input
+            type="email"
+            name="email"
+            value={familyInput.email}
+            onChange={handleChange}
+            className="form-input"
+          />
         </div>
         <button
           type="submit"
-          className={`submit-button ${editIndex !== null ? 'edit-mode' : ''}`}
+          className={`btn ${editIndex !== null ? 'btn--yellow' : 'btn--green'}`}
         >
           {editIndex !== null ? '更新' : '登録'}
         </button>
         
-        <Link to="/" className="submit-button">戻る</Link>
+        <Link to="/" className="btn btn--purple">戻る</Link>
       </form>
-      <h3>登録された家族情報</h3>
-      {familyData && familyData.length > 0 && (
-        <ul>
-          {familyData.map((data, index) => (
-            <li key={index}>
-              {data.family_id} : {data.familyName} - {data.email}
-              <div>
-                <button
-                  onClick={() => handleEdit(index)}
-                  className="edit-button"
-                >
-                  編集
-                </button>
-                <button
-                  onClick={() => handleDelete(data.family_id)}
-                  className="delete-button"
-                >
-                  削除
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <h2 className="info-list-title">登録された家族情報</h2>
+      <div className="info-list-container">
+        {familyData && familyData.length > 0 && (
+          <ul>
+            {familyData.map((data, index) => (
+              <li key={index}>
+                <div className="info-text">{data.family_id} : {data.familyName} - {data.email}</div>
+                <div className="info-button-container">
+                  <button onClick={() => handleEdit(index)} className="btn--mini btn--yellow">
+                    編集
+                  </button>
+                  <button onClick={() => handleDelete(data.family_id)} className="btn--mini btn--red">
+                    削除
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

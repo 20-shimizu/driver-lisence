@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getReportsByUserIdDriveReportsUsersUserIdGet, getUserMeUsersMeGet } from '../api/fastAPISample';
+import "./SimpleResult.css";
 
 function SimpleResult() {
     const [userId, setUserId] = useState(null);
@@ -52,15 +53,15 @@ function SimpleResult() {
     }, [userId]);
 
     return (
-        <div>
-            <h1>本日の結果</h1>
-            <h2>本日のあなたは</h2>
-            <h1>{drivingType} タイプでした！</h1>
-            <h2>今日の運転データ</h2>
-            {imagePath && <img src={imagePath} alt={drivingType} style={{ width: "200px", height: "200px" }} />}
-            <Link to="/detailed_result" className="btn btn--pink">詳しい結果をみる</Link>
-            <div className="btn btn--skyblue">結果を共有する</div>
-            <Link to="/" className="btn btn--yellow">メニュー画面に戻る</Link>
+        <div className="result-container">
+            <h1 className="result-title">本日の結果</h1>
+            <h2 className="result-subtitle">本日のあなたは <br /><span className={`driving-type ${drivingType}`}>{drivingType}</span> タイプでした！</h2>
+            {imagePath && <img src={imagePath} alt={drivingType} className="result-image" />}
+            <div className="link-container">
+                <Link to="/detailed_result/-1" className="btn btn--pink">詳しい結果をみる</Link>
+                <Link to="/email_send" className="btn btn--skyblue">結果を共有する</Link>
+                <Link to="/" className="btn btn--yellow">メニュー画面に戻る</Link>
+            </div>
         </div>
     );
 }

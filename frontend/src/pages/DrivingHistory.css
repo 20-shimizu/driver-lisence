@@ -1,0 +1,103 @@
+/* 全体のコンテナ */
+.history-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.history-title {
+  font-size: 55px;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #333;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* スクロール可能なレポートリスト */
+.report-list {
+  width: 100%;
+  max-height: 500px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+/* レポートアイテム */
+.report-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 警告状態のレポートアイテム */
+.report-item--warning {
+  border: 2px solid red;
+}
+
+/* レポート画像 */
+.report-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .history-container {
+    padding: 15px;
+  }
+  .history-title {
+    font-size: 45px;
+  }
+  .report-list {
+    max-height: 400px;
+    padding: 5px;
+  }
+  .report-item {
+    padding: 10px;
+  }
+  .report-image {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .history-container {
+    max-width: 700px;
+  }
+  .history-title {
+    font-size: 50px;
+  }
+  .report-item {
+    padding: 12px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .history-container {
+    max-width: 900px;
+  }
+  .history-title {
+    font-size: 60px;
+  }
+}
+
